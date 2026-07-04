@@ -1,0 +1,1327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>813</width>
+    <height>621</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Monolith File Organizer</string>
+  </property>
+  <property name="styleSheet">
+   <string>
+/* ================= MONOLITH CORE MASTER THEME ================= */
+* {
+    font-family: &quot;Inter&quot;, &quot;Segoe UI&quot;, sans-serif;
+    color: #e5e2e1;
+}
+QMainWindow, QWidget#centralwidget, QStackedWidget, QWidget#signin, QWidget#signup {
+    background-color: #0A0A0A;
+}
+QWidget#main_app, QWidget#dashboard_view, QWidget#rules_view {
+    background-color: #131313;
+}
+
+/* Typography Headings */
+QLabel#lbl_signin_title, QLabel#lbl_signup_title {
+    font-size: 26px; font-weight: bold; color: #FFFFFF; margin-bottom: 4px;
+}
+QLabel#lbl_dash_title, QLabel#lbl_rules_page_title {
+    font-size: 24px; font-weight: bold; color: #adc6ff;
+}
+QLabel#lbl_rules_page_sub {
+    font-size: 14px; color: #c2c6d6;
+}
+QLabel#lbl_ops_title, QLabel#lbl_rules_title, QLabel#lbl_new_rule_title {
+    font-size: 16px; font-weight: bold; color: #e5e2e1;
+}
+QLabel#lbl_ops_sub, QLabel#lbl_new_rule_sub {
+    font-size: 13px; color: #c2c6d6;
+}
+
+/* Inputs, Textboxes, and ComboBoxes */
+QLineEdit, QComboBox {
+    background-color: #1c1b1b;
+    color: #FFFFFF;
+    border: 1px solid #353534;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 13px;
+}
+QLineEdit:focus, QComboBox:focus {
+    border: 1px solid #adc6ff;
+}
+QLineEdit[readOnly=&quot;true&quot;] {
+    color: #8c909f;
+}
+QComboBox::drop-down {
+    border: none;
+    width: 24px;
+}
+QComboBox QAbstractItemView {
+    background-color: #1c1b1b;
+    color: #FFFFFF;
+    selection-background-color: #324974;
+    border: 1px solid #353534;
+}
+
+/* Standard Buttons */
+QPushButton {
+    background-color: #adc6ff;
+    color: #002e6a;
+    border: none;
+    border-radius: 6px;
+    padding: 11px;
+    font-size: 13px;
+    font-weight: bold;
+}
+QPushButton:hover { background-color: #d8e2ff; }
+QPushButton:pressed { background-color: #4d8eff; }
+
+/* Flat Text Links (Login/Signup) */
+QPushButton#btn_go_signup, QPushButton#btn_go_signin {
+    background-color: transparent; color: #d0bcff; font-weight: normal;
+}
+QPushButton#btn_go_signup:hover, QPushButton#btn_go_signin:hover {
+    color: #FFFFFF; text-decoration: underline;
+}
+
+/* Forms and Cards */
+QFrame#formFrame_signin, QFrame#formFrame_signup, QFrame#card_ops, QFrame#card_rules, QFrame#card_rules_table, QFrame#card_new_rule {
+    background-color: #121212;
+    border-radius: 12px;
+    border: 1px solid #2a2a2a;
+}
+
+/* Sidebar Styling */
+QFrame#sidebarFrame {
+    background-color: #1c1b1b;
+    border-right: 1px solid #2a2a2a;
+}
+QPushButton#btn_nav_dash, QPushButton#btn_nav_rules, QPushButton#btn_nav_tasks, QPushButton#btn_nav_archive, QPushButton#btn_nav_settings {
+    background-color: transparent;
+    color: #c2c6d6;
+    text-align: left;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+QPushButton#btn_nav_dash:hover, QPushButton#btn_nav_rules:hover, QPushButton#btn_nav_tasks:hover, QPushButton#btn_nav_archive:hover, QPushButton#btn_nav_settings:hover {
+    background-color: #2a2a2a; color: #ffffff;
+}
+QPushButton#btn_nav_dash:checked, QPushButton#btn_nav_rules:checked, QPushButton#btn_nav_tasks:checked, QPushButton#btn_nav_archive:checked {
+    background-color: #324974; color: #a2b8ea;
+}
+
+/* Action Buttons Specifics */
+QPushButton#btn_browse_folder {
+    background-color: #2a2a2a; color: #e5e2e1; border: 1px solid #353534;
+}
+QPushButton#btn_browse_folder:hover { background-color: #324974; color: #a2b8ea; }
+QPushButton#btn_run_cleanup {
+    background-color: #adc6ff; color: #00285d; font-size: 14px; padding: 14px; border-radius: 10px;
+}
+QPushButton#btn_run_cleanup:hover { background-color: #d8e2ff; }
+QPushButton#btn_add_rule { background-color: #324974; color: #a2b8ea; }
+QPushButton#btn_add_rule:hover { background-color: #4d8eff; color: #002e6a; }
+QPushButton#btn_remove_rule { background-color: #2a2a2a; color: #ffb4ab; border: 1px solid #93000a; }
+QPushButton#btn_remove_rule:hover { background-color: #93000a; color: #ffffff; }
+
+/* Tables and Console Log */
+QPlainTextEdit#txt_activity_log {
+    background-color: #0e0e0e; color: #adc6ff; border: 1px solid #2a2a2a; border-radius: 8px; font-family: monospace; font-size: 11px;
+}
+QTableWidget {
+    background-color: transparent; border: none; gridline-color: #2a2a2a;
+}
+QTableWidget::item {
+    padding: 8px 4px; border-bottom: 1px solid #2a2a2a; color: #c2c6d6; font-size: 13px;
+}
+QTableWidget::item:selected {
+    background-color: #324974; color: #ffffff;
+}
+QHeaderView::section {
+    background-color: #1c1b1b; color: #8c909f; padding: 10px 6px; border: none; border-bottom: 1px solid #2a2a2a; font-weight: bold; font-size: 12px; text-align: left;
+}
+
+/* Checkbox */
+QCheckBox { font-size: 12px; spacing: 8px; }
+QCheckBox::indicator { width: 16px; height: 16px; border-radius: 4px; border: 1px solid #8c909f; background: #131313; }
+QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
+   </string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_main">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QStackedWidget" name="stackedWidget_main">
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <widget class="QWidget" name="signin">
+       <layout class="QGridLayout" name="gridLayout_signin">
+        <item row="0" column="1">
+         <spacer name="vSp_in1">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="0">
+         <spacer name="hSp_in1">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="1">
+         <widget class="QFrame" name="formFrame_signin">
+          <property name="minimumSize">
+           <size>
+            <width>400</width>
+            <height>420</height>
+           </size>
+          </property>
+          <layout class="QVBoxLayout" name="vbox_signin">
+           <property name="spacing">
+            <number>14</number>
+           </property>
+           <property name="leftMargin">
+            <number>36</number>
+           </property>
+           <property name="topMargin">
+            <number>36</number>
+           </property>
+           <property name="rightMargin">
+            <number>36</number>
+           </property>
+           <property name="bottomMargin">
+            <number>36</number>
+           </property>
+           <item alignment="Qt::AlignHCenter">
+            <widget class="QLabel" name="logo_in">
+             <property name="minimumSize">
+              <size>
+               <width>72</width>
+               <height>72</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>72</width>
+               <height>72</height>
+              </size>
+             </property>
+             <property name="pixmap">
+              <pixmap>logo.svg</pixmap>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbl_signin_title">
+             <property name="text">
+              <string>Sign In</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="txt_signin_email">
+             <property name="placeholderText">
+              <string>Email Address</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="txt_signin_password">
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
+             <property name="placeholderText">
+              <string>Password</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_signin">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Sign In</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_go_signup">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Don't have an account? Sign Up</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <spacer name="hSp_in2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </spacer>
+        </item>
+        <item row="2" column="1">
+         <spacer name="vSp_in2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="signup">
+       <layout class="QGridLayout" name="gridLayout_signup">
+        <item row="0" column="1">
+         <spacer name="vSp_up1">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="0">
+         <spacer name="hSp_up1">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="1">
+         <widget class="QFrame" name="formFrame_signup">
+          <property name="minimumSize">
+           <size>
+            <width>400</width>
+            <height>480</height>
+           </size>
+          </property>
+          <layout class="QVBoxLayout" name="vbox_signup">
+           <property name="spacing">
+            <number>14</number>
+           </property>
+           <property name="leftMargin">
+            <number>36</number>
+           </property>
+           <property name="topMargin">
+            <number>36</number>
+           </property>
+           <property name="rightMargin">
+            <number>36</number>
+           </property>
+           <property name="bottomMargin">
+            <number>36</number>
+           </property>
+           <item alignment="Qt::AlignHCenter">
+            <widget class="QLabel" name="logo_up">
+             <property name="minimumSize">
+              <size>
+               <width>72</width>
+               <height>72</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>72</width>
+               <height>72</height>
+              </size>
+             </property>
+             <property name="pixmap">
+              <pixmap>logo.svg</pixmap>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbl_signup_title">
+             <property name="text">
+              <string>Create Account</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="txt_signup_username">
+             <property name="placeholderText">
+              <string>Username</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="txt_signup_email">
+             <property name="placeholderText">
+              <string>Email Address</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="txt_signup_password">
+             <property name="echoMode">
+              <enum>QLineEdit::Password</enum>
+             </property>
+             <property name="placeholderText">
+              <string>Password</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_signup">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Sign Up</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_go_signin">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>Already have an account? Sign In</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <spacer name="hSp_up2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </spacer>
+        </item>
+        <item row="2" column="1">
+         <spacer name="vSp_up2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="main_app">
+       <layout class="QHBoxLayout" name="horizontalLayout_app_master">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QFrame" name="sidebarFrame">
+          <property name="minimumSize">
+           <size>
+            <width>210</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>210</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_sidebar">
+           <property name="spacing">
+            <number>8</number>
+           </property>
+           <property name="leftMargin">
+            <number>16</number>
+           </property>
+           <property name="topMargin">
+            <number>24</number>
+           </property>
+           <property name="rightMargin">
+            <number>16</number>
+           </property>
+           <property name="bottomMargin">
+            <number>24</number>
+           </property>
+           <item>
+            <layout class="QHBoxLayout" name="sidebarLogoLayout">
+             <property name="bottomMargin">
+              <number>16</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="lbl_side_logo">
+               <property name="minimumSize">
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="pixmap">
+                <pixmap>file-organizer-logo.svg</pixmap>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lbl_side_appname">
+               <property name="styleSheet">
+                <string>font-weight: 800; letter-spacing: 1px; color: #adc6ff; font-size: 15px;</string>
+               </property>
+               <property name="text">
+                <string>FILE ORGANIZER</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_nav_dash">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>  Dashboard</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_nav_rules">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>  File Rules</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_nav_tasks">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>  Active Tasks</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_nav_archive">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>  Archive</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_sidebar">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_nav_settings">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>  System Settings</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QStackedWidget" name="stackedWidget_app">
+          <property name="currentIndex">
+           <number>1</number>
+          </property>
+          <widget class="QWidget" name="dashboard_view">
+           <layout class="QVBoxLayout" name="verticalLayout_dash_body">
+            <property name="spacing">
+             <number>16</number>
+            </property>
+            <property name="leftMargin">
+             <number>32</number>
+            </property>
+            <property name="topMargin">
+             <number>32</number>
+            </property>
+            <property name="rightMargin">
+             <number>32</number>
+            </property>
+            <property name="bottomMargin">
+             <number>32</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="lbl_dash_title">
+              <property name="text">
+               <string>Dashboard</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_dash_grid" stretch="1,1">
+              <property name="spacing">
+               <number>24</number>
+              </property>
+              <item>
+               <widget class="QFrame" name="card_ops">
+                <layout class="QVBoxLayout" name="verticalLayout_ops">
+                 <property name="spacing">
+                  <number>14</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>24</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>24</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>24</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>24</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="lbl_ops_title">
+                   <property name="text">
+                    <string>Operations Center</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lbl_ops_sub">
+                   <property name="text">
+                    <string>Initialize file system indexing and cleanup.</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lbl_target_tag">
+                   <property name="styleSheet">
+                    <string>font-size: 10px; font-weight: bold; color: #8c909f; letter-spacing: 1px;</string>
+                   </property>
+                   <property name="text">
+                    <string>TARGET FOLDER</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="targetFolderLayout">
+                   <item>
+                    <widget class="QLineEdit" name="txt_target_folder">
+                     <property name="text">
+                      <string>/users/monolith/production/assets</string>
+                     </property>
+                     <property name="readOnly">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="btn_browse_folder">
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="text">
+                      <string>Browse...</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="chk_dedup">
+                   <property name="text">
+                    <string>Delete identical duplicate files (SHA-256)</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="btn_run_cleanup">
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="text">
+                    <string>RUN MANIFEST CLEANUP</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="lbl_log_header">
+                   <property name="styleSheet">
+                    <string>font-size: 11px; color: #8c909f; margin-top: 6px;</string>
+                   </property>
+                   <property name="text">
+                    <string>Console Log</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPlainTextEdit" name="txt_activity_log">
+                   <property name="readOnly">
+                    <bool>true</bool>
+                   </property>
+                   <property name="plainText">
+                    <string># Monolith System initialized...
+# Session active. Awaiting instruction...
+_</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QFrame" name="card_rules">
+                <layout class="QVBoxLayout" name="verticalLayout_rules_small">
+                 <property name="spacing">
+                  <number>12</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>24</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>24</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>24</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>24</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="lbl_rules_title">
+                   <property name="text">
+                    <string>Active Routing Rules</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QTableWidget" name="table_rules">
+                   <property name="verticalScrollBarPolicy">
+                    <enum>Qt::ScrollBarAsNeeded</enum>
+                   </property>
+                   <property name="horizontalScrollBarPolicy">
+                    <enum>Qt::ScrollBarAlwaysOff</enum>
+                   </property>
+                   <property name="alternatingRowColors">
+                    <bool>false</bool>
+                   </property>
+                   <property name="selectionBehavior">
+                    <enum>QAbstractItemView::SelectRows</enum>
+                   </property>
+                   <property name="showGrid">
+                    <bool>false</bool>
+                   </property>
+                   <property name="rowCount">
+                    <number>4</number>
+                   </property>
+                   <property name="columnCount">
+                    <number>2</number>
+                   </property>
+                   <attribute name="horizontalHeaderStretchLastSection">
+                    <bool>true</bool>
+                   </attribute>
+                   <attribute name="verticalHeaderVisible">
+                    <bool>false</bool>
+                   </attribute>
+                   <row/>
+                   <row/>
+                   <row/>
+                   <row/>
+                   <column>
+                    <property name="text">
+                     <string>Extension</string>
+                    </property>
+                   </column>
+                   <column>
+                    <property name="text">
+                     <string>Destination</string>
+                    </property>
+                   </column>
+                   <item row="0" column="0">
+                    <property name="text">
+                     <string>.pdf</string>
+                    </property>
+                   </item>
+                   <item row="0" column="1">
+                    <property name="text">
+                     <string>Documents/PDFs</string>
+                    </property>
+                   </item>
+                   <item row="1" column="0">
+                    <property name="text">
+                     <string>.png, .jpg</string>
+                    </property>
+                   </item>
+                   <item row="1" column="1">
+                    <property name="text">
+                     <string>Images/Work</string>
+                    </property>
+                   </item>
+                   <item row="2" column="0">
+                    <property name="text">
+                     <string>.zip</string>
+                    </property>
+                   </item>
+                   <item row="2" column="1">
+                    <property name="text">
+                     <string>Archives/System</string>
+                    </property>
+                   </item>
+                   <item row="3" column="0">
+                    <property name="text">
+                     <string>.mp4</string>
+                    </property>
+                   </item>
+                   <item row="3" column="1">
+                    <property name="text">
+                     <string>Media/Video</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="newRuleInputs">
+                   <item>
+                    <widget class="QLineEdit" name="txt_new_ext">
+                     <property name="placeholderText">
+                      <string>.mp3</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="txt_new_dest">
+                     <property name="placeholderText">
+                      <string>Music/Library</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="newRuleButtons">
+                   <item>
+                    <widget class="QPushButton" name="btn_add_rule">
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="text">
+                      <string>ADD RULE</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="btn_remove_rule">
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="text">
+                      <string>REMOVE</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="rules_view">
+           <layout class="QVBoxLayout" name="verticalLayout_rules_page">
+            <property name="spacing">
+             <number>24</number>
+            </property>
+            <property name="leftMargin">
+             <number>32</number>
+            </property>
+            <property name="topMargin">
+             <number>32</number>
+            </property>
+            <property name="rightMargin">
+             <number>32</number>
+            </property>
+            <property name="bottomMargin">
+             <number>32</number>
+            </property>
+            <item>
+             <layout class="QVBoxLayout" name="header_rules">
+              <property name="spacing">
+               <number>4</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="lbl_rules_page_title">
+                <property name="text">
+                 <string>File Routing Configurations</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="lbl_rules_page_sub">
+                <property name="text">
+                 <string>Define target destinations based on format extensions.</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_rules_grid" stretch="7,4">
+              <property name="spacing">
+               <number>24</number>
+              </property>
+              <item>
+               <widget class="QFrame" name="card_rules_table">
+                <layout class="QVBoxLayout" name="verticalLayout_rules_full_table">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>12</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>12</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>12</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>12</number>
+                 </property>
+                 <item>
+                  <widget class="QTableWidget" name="table_rules_full">
+                   <property name="verticalScrollBarPolicy">
+                    <enum>Qt::ScrollBarAsNeeded</enum>
+                   </property>
+                   <property name="horizontalScrollBarPolicy">
+                    <enum>Qt::ScrollBarAlwaysOff</enum>
+                   </property>
+                   <property name="alternatingRowColors">
+                    <bool>false</bool>
+                   </property>
+                   <property name="selectionBehavior">
+                    <enum>QAbstractItemView::SelectRows</enum>
+                   </property>
+                   <property name="showGrid">
+                    <bool>false</bool>
+                   </property>
+                   <property name="rowCount">
+                    <number>4</number>
+                   </property>
+                   <property name="columnCount">
+                    <number>4</number>
+                   </property>
+                   <attribute name="horizontalHeaderStretchLastSection">
+                    <bool>false</bool>
+                   </attribute>
+                   <attribute name="verticalHeaderVisible">
+                    <bool>false</bool>
+                   </attribute>
+                   <row/>
+                   <row/>
+                   <row/>
+                   <row/>
+                   <column>
+                    <property name="text">
+                     <string>Extension</string>
+                    </property>
+                   </column>
+                   <column>
+                    <property name="text">
+                     <string>Target Subfolder</string>
+                    </property>
+                   </column>
+                   <column>
+                    <property name="text">
+                     <string>Last Modified</string>
+                    </property>
+                   </column>
+                   <column>
+                    <property name="text">
+                     <string>Actions</string>
+                    </property>
+                   </column>
+                   <item row="0" column="0">
+                    <property name="text">
+                     <string>.pdf</string>
+                    </property>
+                   </item>
+                   <item row="0" column="1">
+                    <property name="text">
+                     <string>/Documents/PDFs</string>
+                    </property>
+                   </item>
+                   <item row="0" column="2">
+                    <property name="text">
+                     <string>Oct 24, 2023</string>
+                    </property>
+                   </item>
+                   <item row="0" column="3">
+                    <property name="text">
+                     <string>✎ Edit</string>
+                    </property>
+                    <property name="textAlignment">
+                     <set>AlignTrailing|AlignVCenter</set>
+                    </property>
+                   </item>
+                   <item row="1" column="0">
+                    <property name="text">
+                     <string>.jpg, .png</string>
+                    </property>
+                   </item>
+                   <item row="1" column="1">
+                    <property name="text">
+                     <string>/Media/Images</string>
+                    </property>
+                   </item>
+                   <item row="1" column="2">
+                    <property name="text">
+                     <string>Oct 22, 2023</string>
+                    </property>
+                   </item>
+                   <item row="1" column="3">
+                    <property name="text">
+                     <string>✎ Edit</string>
+                    </property>
+                    <property name="textAlignment">
+                     <set>AlignTrailing|AlignVCenter</set>
+                    </property>
+                   </item>
+                   <item row="2" column="0">
+                    <property name="text">
+                     <string>.mp4, .mov</string>
+                    </property>
+                   </item>
+                   <item row="2" column="1">
+                    <property name="text">
+                     <string>/Media/Videos</string>
+                    </property>
+                   </item>
+                   <item row="2" column="2">
+                    <property name="text">
+                     <string>Oct 20, 2023</string>
+                    </property>
+                   </item>
+                   <item row="2" column="3">
+                    <property name="text">
+                     <string>✎ Edit</string>
+                    </property>
+                    <property name="textAlignment">
+                     <set>AlignTrailing|AlignVCenter</set>
+                    </property>
+                   </item>
+                   <item row="3" column="0">
+                    <property name="text">
+                     <string>.zip, .tar.gz</string>
+                    </property>
+                   </item>
+                   <item row="3" column="1">
+                    <property name="text">
+                     <string>/Archives</string>
+                    </property>
+                   </item>
+                   <item row="3" column="2">
+                    <property name="text">
+                     <string>Oct 15, 2023</string>
+                    </property>
+                   </item>
+                   <item row="3" column="3">
+                    <property name="text">
+                     <string>✎ Edit</string>
+                    </property>
+                    <property name="textAlignment">
+                     <set>AlignTrailing|AlignVCenter</set>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_sticky_container">
+                <item>
+                 <widget class="QFrame" name="card_new_rule">
+                  <layout class="QVBoxLayout" name="verticalLayout_new_rule">
+                   <property name="spacing">
+                    <number>16</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>24</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>24</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>24</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>24</number>
+                   </property>
+                   <item>
+                    <layout class="QVBoxLayout" name="header_new_rule">
+                     <property name="spacing">
+                      <number>4</number>
+                     </property>
+                     <item>
+                      <widget class="QLabel" name="lbl_new_rule_title">
+                       <property name="text">
+                        <string>New Rule</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="lbl_new_rule_sub">
+                       <property name="text">
+                        <string>Configure automated routing.</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QVBoxLayout" name="inputs_new_rule">
+                     <property name="spacing">
+                      <number>14</number>
+                     </property>
+                     <item>
+                      <layout class="QVBoxLayout" name="vbox_preset">
+                       <property name="spacing">
+                        <number>6</number>
+                       </property>
+                       <item>
+                        <widget class="QLabel" name="lbl_preset">
+                         <property name="styleSheet">
+                          <string>font-size: 12px; color: #8c909f; font-weight: bold;</string>
+                         </property>
+                         <property name="text">
+                          <string>Apply Preset Template</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QComboBox" name="combo_preset">
+                         <item>
+                          <property name="text">
+                           <string>Select a preset...</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>Standard Media (Images/Video)</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>Developer Workspace (Code/Logs)</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>Office Documents</string>
+                          </property>
+                         </item>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <widget class="Line" name="line_rule_sep">
+                       <property name="styleSheet">
+                        <string>color: #2a2a2a;</string>
+                       </property>
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <layout class="QVBoxLayout" name="vbox_ext">
+                       <property name="spacing">
+                        <number>6</number>
+                       </property>
+                       <item>
+                        <widget class="QLabel" name="lbl_ext">
+                         <property name="styleSheet">
+                          <string>font-size: 13px; color: #e5e2e1; font-weight: 600;</string>
+                         </property>
+                         <property name="text">
+                          <string>Extension(s)</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="txt_rule_ext">
+                         <property name="placeholderText">
+                          <string>e.g. .docx, .txt</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QVBoxLayout" name="vbox_dest">
+                       <property name="spacing">
+                        <number>6</number>
+                       </property>
+                       <item>
+                        <widget class="QLabel" name="lbl_dest">
+                         <property name="styleSheet">
+                          <string>font-size: 13px; color: #e5e2e1; font-weight: 600;</string>
+                         </property>
+                         <property name="text">
+                          <string>Destination Path</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="txt_rule_dest">
+                         <property name="placeholderText">
+                          <string>/Target/Folder</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="btn_save_rule">
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="styleSheet">
+                      <string>margin-top: 8px;</string>
+                     </property>
+                     <property name="text">
+                      <string>Save Rule Set</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_sticky">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

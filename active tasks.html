@@ -1,0 +1,240 @@
+<!DOCTYPE html><html lang="en" class="dark" style=""><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><script id="tailwind-config">try{
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-primary": "#002e6a",
+                "surface-bright": "#393939",
+                "on-tertiary-fixed-variant": "#5516be",
+                "on-surface-variant": "#c2c6d6",
+                "surface-variant": "#353534",
+                "primary": "#adc6ff",
+                "on-tertiary-container": "#340080",
+                "background": "#131313",
+                "surface-container-highest": "#353534",
+                "surface-container-lowest": "#0e0e0e",
+                "secondary-container": "#324974",
+                "on-error": "#690005",
+                "surface-container-low": "#1c1b1b",
+                "error-container": "#93000a",
+                "surface-container-high": "#2a2a2a",
+                "surface-container": "#201f1f",
+                "primary-container": "#4d8eff",
+                "inverse-primary": "#005ac2",
+                "primary-fixed-dim": "#adc6ff",
+                "tertiary": "#d0bcff",
+                "primary-fixed": "#d8e2ff",
+                "inverse-surface": "#e5e2e1",
+                "tertiary-fixed-dim": "#d0bcff",
+                "on-secondary-fixed-variant": "#304671",
+                "secondary-fixed-dim": "#b0c6f9",
+                "on-primary-fixed": "#001a42",
+                "on-background": "#e5e2e1",
+                "error": "#ffb4ab",
+                "outline": "#8c909f",
+                "outline-variant": "#424754",
+                "on-primary-fixed-variant": "#004395",
+                "tertiary-container": "#a078ff",
+                "secondary": "#b0c6f9",
+                "surface": "#131313",
+                "surface-tint": "#adc6ff",
+                "on-primary-container": "#00285d",
+                "on-surface": "#e5e2e1",
+                "tertiary-fixed": "#e9ddff",
+                "on-secondary-container": "#a2b8ea",
+                "inverse-on-surface": "#313030",
+                "on-error-container": "#ffdad6",
+                "on-secondary-fixed": "#001a41",
+                "on-tertiary": "#3c0091",
+                "surface-dim": "#131313",
+                "secondary-fixed": "#d8e2ff",
+                "on-secondary": "#173059",
+                "on-tertiary-fixed": "#23005c"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "md": "24px",
+                "margin": "32px",
+                "sm": "12px",
+                "lg": "40px",
+                "base": "8px",
+                "xs": "4px",
+                "max-width": "1440px",
+                "gutter": "24px"
+        },
+        "fontFamily": {
+                "headline-xl": ["Inter"],
+                "label-md": ["Inter"],
+                "headline-lg": ["Inter"],
+                "headline-lg-mobile": ["Inter"],
+                "body-lg": ["Inter"],
+                "headline-md": ["Inter"],
+                "label-sm": ["Inter"],
+                "body-md": ["Inter"]
+        },
+        "fontSize": {
+                "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }
+}catch(_e){}</script><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><meta charset="utf-8"></head><body class="bg-surface text-on-surface min-h-screen flex flex-col md:flex-row antialiased">
+<nav class="hidden md:flex flex-col fixed left-0 top-0 h-full w-80 p-md bg-surface-container-low border-r border-white/5 z-40">
+<div class="mb-lg"><div class="flex items-center gap-sm"><div class="w-10 h-10">{{DATA:DOCUMENT:DOCUMENT_5}}</div><span class="font-headline-md text-headline-md font-bold text-primary tracking-tight">FILE ORGANIZER</span></div></div>
+<div class="flex-1 flex flex-col gap-sm mt-md">
+<a href="#" class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 rounded-lg group">
+<span class="material-symbols-outlined text-headline-md group-hover:text-primary transition-colors" data-original-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a href="#" class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 rounded-lg group">
+<span class="material-symbols-outlined text-headline-md group-hover:text-primary transition-colors">rule</span>
+<span class="font-label-md text-label-md">File Rules</span>
+</a>
+<a href="#" class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container font-bold rounded-lg transition-all duration-150">
+<span class="material-symbols-outlined text-headline-md" data-original-icon="pending_actions">pending_actions</span>
+<span class="font-label-md text-label-md">Active Tasks</span>
+</a>
+<a href="#" class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 rounded-lg group">
+<span class="material-symbols-outlined text-headline-md group-hover:text-primary transition-colors">archive</span>
+<span class="font-label-md text-label-md">Archive</span>
+</a>
+<a href="#" class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 rounded-lg group mt-auto">
+<span class="material-symbols-outlined text-headline-md group-hover:text-primary transition-colors">settings</span>
+<span class="font-label-md text-label-md">System Settings</span>
+</a>
+</div>
+</nav>
+<header class="md:hidden w-full top-0 bg-surface flex justify-between items-center px-gutter py-sm max-w-max-width mx-auto z-40 relative">
+<button class="text-primary hover:bg-surface-container-high transition-colors duration-200 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined font-headline-md text-headline-md">menu</span>
+</button>
+<div class="font-headline-md text-headline-md font-bold text-primary tracking-tight">
+    📁 FILE ORGANIZER
+  </div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border border-white/10 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A highly detailed close up portrait of an abstract cybernetic user profile avatar icon with deep black background and glowing blue outlines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLy_aXyj-sGE-Y6WrgPUC_qj3GEMhDT_SL4OzblRTICQBf4R_W2BMIeP9iQ7x95Zh_ybaOf5PAEBTwoFREHLKgGFExMBPYv3tg1lKvvTG4xQ5tS0LNtedFOPQCXgKnq0JPvlRCIF3jYBv38NObI3xNwJYiA2uDE3194vldFD52Nc5Y7HfAuSiAlkyK4LGsFu2s7hWVnELkoMt6F1HBlTA9unD42dbc66gmFr-4IIXX9i6-JEZGkqs">
+</div>
+</header>
+<div class="md:hidden w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+<main class="flex-1 md:ml-80 pt-md md:pt-lg pb-32 px-gutter md:px-lg max-w-max-width mx-auto w-full flex flex-col gap-lg">
+<header class="flex flex-col gap-xs">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-xl md:text-headline-xl text-on-surface">
+      Task Performance Registry
+    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+      Historical archive of manual manifest cleanup operations.
+    </p>
+</header>
+<section class="w-full bg-surface-container rounded-xl border border-white/5 overflow-hidden flex flex-col shadow-2xl relative">
+<div class="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
+<div class="w-full overflow-x-auto relative z-10">
+<table class="w-full text-left whitespace-nowrap border-collapse">
+<thead>
+<tr class="border-b border-white/10 bg-surface-container-high/50">
+<th class="py-4 px-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Timestamp</th>
+<th class="py-4 px-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Target Directory</th>
+<th class="py-4 px-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Files Sorted</th>
+<th class="py-4 px-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Duplicates Purged</th>
+<th class="py-4 px-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5 font-body-md text-body-md">
+<tr class="hover:bg-surface-container-high transition-colors duration-150 group">
+<td class="py-4 px-md text-on-surface group-hover:text-primary transition-colors">2023-10-27 14:32:01</td>
+<td class="py-4 px-md text-on-surface-variant font-mono text-sm">/volume1/media/ingest</td>
+<td class="py-4 px-md text-on-surface">1,204</td>
+<td class="py-4 px-md text-on-surface">42</td>
+<td class="py-4 px-md">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm border border-primary-container/20 shadow-sm">
+                SUCCESS
+              </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors duration-150 group">
+<td class="py-4 px-md text-on-surface group-hover:text-primary transition-colors">2023-10-27 11:15:44</td>
+<td class="py-4 px-md text-on-surface-variant font-mono text-sm">/mnt/storage_pool/temp</td>
+<td class="py-4 px-md text-on-surface">8,992</td>
+<td class="py-4 px-md text-on-surface">315</td>
+<td class="py-4 px-md">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm border border-tertiary-container/20 shadow-sm">
+                PARTIAL
+              </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors duration-150 group">
+<td class="py-4 px-md text-on-surface group-hover:text-primary transition-colors">2023-10-26 23:59:10</td>
+<td class="py-4 px-md text-on-surface-variant font-mono text-sm">/var/log/app_traces</td>
+<td class="py-4 px-md text-on-surface">450</td>
+<td class="py-4 px-md text-on-surface">0</td>
+<td class="py-4 px-md">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm border border-primary-container/20 shadow-sm">
+                SUCCESS
+              </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors duration-150 group">
+<td class="py-4 px-md text-on-surface group-hover:text-primary transition-colors">2023-10-26 18:20:05</td>
+<td class="py-4 px-md text-on-surface-variant font-mono text-sm">/users/admin/downloads</td>
+<td class="py-4 px-md text-on-surface">12</td>
+<td class="py-4 px-md text-on-surface">1</td>
+<td class="py-4 px-md">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm border border-error-container/20 shadow-sm">
+                FAILED
+              </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors duration-150 group">
+<td class="py-4 px-md text-on-surface group-hover:text-primary transition-colors">2023-10-25 09:00:00</td>
+<td class="py-4 px-md text-on-surface-variant font-mono text-sm">/volume2/archive/2022</td>
+<td class="py-4 px-md text-on-surface">45,102</td>
+<td class="py-4 px-md text-on-surface">1,208</td>
+<td class="py-4 px-md">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm border border-primary-container/20 shadow-sm">
+                SUCCESS
+              </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<div class="flex justify-end mt-sm">
+<button class="px-6 py-2 rounded-lg border border-outline-variant text-outline hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 font-label-md text-label-md flex items-center gap-2 group focus:outline-none focus:ring-2 focus:ring-primary/50">
+<span class="material-symbols-outlined text-[18px] group-hover:rotate-12 transition-transform">delete_sweep</span>
+      Flush History Logs
+    </button>
+</div>
+</main>
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container rounded-t-xl shadow-lg flex justify-around items-center h-20 pb-safe px-2 border-t border-white/5">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary scale-95 active:scale-90 transition-transform group">
+<span class="material-symbols-outlined mb-1 group-hover:text-primary transition-colors">folder_managed</span>
+<span class="font-label-sm text-label-sm">Operations</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary scale-95 active:scale-90 transition-transform group">
+<span class="material-symbols-outlined mb-1 group-hover:text-primary transition-colors">rule</span>
+<span class="font-label-sm text-label-sm">Rules</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-95 active:scale-90 transition-transform shadow-inner">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-label-sm text-label-sm font-semibold">History</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary scale-95 active:scale-90 transition-transform group">
+<span class="material-symbols-outlined mb-1 group-hover:text-primary transition-colors">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</button>
+</nav>
+
+</body></html>

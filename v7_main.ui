@@ -23,11 +23,7 @@
 QMainWindow, QWidget#centralwidget, QStackedWidget, QWidget#signin, QWidget#signup {
     background-color: #0A0A0A;
 }
-QWidget#main_app,
-QWidget#dashboard_view,
-QWidget#rules_view,
-QWidget#tasks_view,
-QWidget#archive_view {
+QWidget#main_app, QWidget#dashboard_view, QWidget#rules_view, QWidget#tasks_view {
     background-color: #131313;
 }
 
@@ -35,15 +31,10 @@ QWidget#archive_view {
 QLabel#lbl_signin_title, QLabel#lbl_signup_title {
     font-size: 26px; font-weight: bold; color: #FFFFFF; margin-bottom: 4px;
 }
-QLabel#lbl_dash_title,
-QLabel#lbl_rules_page_title,
-QLabel#lbl_tasks_page_title,
-QLabel#lbl_archive_title {
+QLabel#lbl_dash_title, QLabel#lbl_rules_page_title, QLabel#lbl_tasks_page_title {
     font-size: 24px; font-weight: bold; color: #adc6ff;
 }
-QLabel#lbl_rules_page_sub,
-QLabel#lbl_tasks_page_sub,
-QLabel#lbl_archive_sub {
+QLabel#lbl_rules_page_sub, QLabel#lbl_tasks_page_sub {
     font-size: 14px; color: #c2c6d6;
 }
 QLabel#lbl_ops_title, QLabel#lbl_rules_title, QLabel#lbl_new_rule_title {
@@ -101,8 +92,7 @@ QPushButton#btn_go_signup:hover, QPushButton#btn_go_signin:hover {
 }
 
 /* Forms and Cards */
-QFrame#formFrame_signin, QFrame#formFrame_signup, QFrame#card_ops, QFrame#card_rules, QFrame#card_rules_table, QFrame#card_new_rule, QFrame#card_tasks_table,
-QFrame#card_archive_table {
+QFrame#formFrame_signin, QFrame#formFrame_signup, QFrame#card_ops, QFrame#card_rules, QFrame#card_rules_table, QFrame#card_new_rule, QFrame#card_tasks_table {
     background-color: #121212;
     border-radius: 12px;
     border: 1px solid #2a2a2a;
@@ -147,26 +137,6 @@ QPushButton#btn_flush_logs {
 }
 QPushButton#btn_flush_logs:hover {
     background-color: #2a2a2a; color: #e5e2e1;
-}
-
-/* Archive specific buttons */
-QPushButton#btn_restore_archive {
-    background: #2a2a2a;
-    color: #adc6ff;
-    border: 1px solid #353534;
-}
-QPushButton#btn_restore_archive:hover {
-    background: #324974;
-    color: white;
-}
-QPushButton#btn_empty_archive {
-    background: #3a1a1a;
-    color: #ffb4ab;
-    border: 1px solid #93000a;
-}
-QPushButton#btn_empty_archive:hover {
-    background: #93000a;
-    color: white;
 }
 
 /* Tables and Console Log */
@@ -605,194 +575,6 @@ _</string></property>
             
            </layout>
           </widget>
-
-          <!-- ========== NEW ARCHIVE VIEW ========== -->
-          <widget class="QWidget" name="archive_view">
-          <layout class="QVBoxLayout" name="verticalLayout_archive_page">
-          <property name="spacing">
-          <number>24</number>
-          </property>
-          <property name="leftMargin">
-          <number>24</number>
-          </property>
-          <property name="topMargin">
-          <number>24</number>
-          </property>
-          <property name="rightMargin">
-          <number>24</number>
-          </property>
-          <property name="bottomMargin">
-          <number>24</number>
-          </property>
-
-          <item>
-          <layout class="QVBoxLayout" name="archiveHeader">
-              <property name="spacing">
-              <number>4</number>
-              </property>
-              <item>
-              <widget class="QLabel" name="lbl_archive_title">
-              <property name="text">
-              <string>Local Cache &amp; Purge Archive</string>
-              </property>
-              </widget>
-              </item>
-              <item>
-              <widget class="QLabel" name="lbl_archive_sub">
-              <property name="text">
-              <string>Isolated duplicate files waiting for restoration or permanent deletion.</string>
-              </property>
-              </widget>
-              </item>
-          </layout>
-          </item>
-
-          <item>
-          <widget class="QFrame" name="card_archive_table">
-              <layout class="QVBoxLayout" name="verticalLayout_archive_card">
-              <property name="spacing">
-              <number>12</number>
-              </property>
-              <property name="leftMargin">
-              <number>12</number>
-              </property>
-              <property name="topMargin">
-              <number>12</number>
-              </property>
-              <property name="rightMargin">
-              <number>12</number>
-              </property>
-              <property name="bottomMargin">
-              <number>12</number>
-              </property>
-
-              <item>
-              <widget class="QTableWidget" name="table_archive">
-              <property name="showGrid">
-                  <bool>false</bool>
-              </property>
-              <property name="selectionBehavior">
-                  <enum>QAbstractItemView::SelectRows</enum>
-              </property>
-              <property name="alternatingRowColors">
-                  <bool>false</bool>
-              </property>
-              <property name="columnCount">
-                  <number>5</number>
-              </property>
-              <property name="rowCount">
-                  <number>5</number>
-              </property>
-              <!-- Last column stretches to fill extra space -->
-              <attribute name="horizontalHeaderStretchLastSection">
-                  <bool>true</bool>
-              </attribute>
-              <attribute name="verticalHeaderVisible">
-                  <bool>false</bool>
-              </attribute>
-
-              <!-- Columns -->
-              <column>
-                  <property name="text">
-                  <string></string>
-                  </property>
-              </column>
-              <column>
-                  <property name="text">
-                  <string>Original File Name</string>
-                  </property>
-              </column>
-              <column>
-                  <property name="text">
-                  <string>Original Path</string>
-                  </property>
-              </column>
-              <column>
-                  <property name="text">
-                  <string>File Size</string>
-                  </property>
-              </column>
-              <column>
-                  <property name="text">
-                  <string>Date Isolated</string>
-                  </property>
-              </column>
-
-              <!-- Row 0 -->
-              <row/>
-              <item row="0" column="0"><property name="text"><string>📷</string></property></item>
-              <item row="0" column="1"><property name="text"><string>DSC_0451.jpg</string></property></item>
-              <item row="0" column="2"><property name="text"><string>/Photos/2024/Holiday</string></property></item>
-              <item row="0" column="3"><property name="text"><string>4.2 MB</string></property></item>
-              <item row="0" column="4"><property name="text"><string>2026-07-04 10:23:15</string></property></item>
-
-              <!-- Row 1 -->
-              <row/>
-              <item row="1" column="0"><property name="text"><string>📄</string></property></item>
-              <item row="1" column="1"><property name="text"><string>project_report_v2.pdf</string></property></item>
-              <item row="1" column="2"><property name="text"><string>/Documents/Work</string></property></item>
-              <item row="1" column="3"><property name="text"><string>1.8 MB</string></property></item>
-              <item row="1" column="4"><property name="text"><string>2026-07-03 16:10:02</string></property></item>
-
-              <!-- Row 2 -->
-              <row/>
-              <item row="2" column="0"><property name="text"><string>🗜️</string></property></item>
-              <item row="2" column="1"><property name="text"><string>backup_archive.zip</string></property></item>
-              <item row="2" column="2"><property name="text"><string>/Backups/Old</string></property></item>
-              <item row="2" column="3"><property name="text"><string>125.6 MB</string></property></item>
-              <item row="2" column="4"><property name="text"><string>2026-07-02 08:45:33</string></property></item>
-
-              <!-- Row 3 -->
-              <row/>
-              <item row="3" column="0"><property name="text"><string>🖼️</string></property></item>
-              <item row="3" column="1"><property name="text"><string>logo_final.png</string></property></item>
-              <item row="3" column="2"><property name="text"><string>/Design/Assets</string></property></item>
-              <item row="3" column="3"><property name="text"><string>650 KB</string></property></item>
-              <item row="3" column="4"><property name="text"><string>2026-07-01 22:12:48</string></property></item>
-
-              <!-- Row 4 -->
-              <row/>
-              <item row="4" column="0"><property name="text"><string>📊</string></property></item>
-              <item row="4" column="1"><property name="text"><string>data_export.csv</string></property></item>
-              <item row="4" column="2"><property name="text"><string>/Data/Exports</string></property></item>
-              <item row="4" column="3"><property name="text"><string>15.3 MB</string></property></item>
-              <item row="4" column="4"><property name="text"><string>2026-06-30 14:55:21</string></property></item>
-
-              </widget>
-              </item>
-
-              <item>
-              <layout class="QHBoxLayout" name="archiveFooter">
-              <item>
-                  <widget class="QPushButton" name="btn_restore_archive">
-                  <property name="text">
-                  <string>Restore Selected File</string>
-                  </property>
-                  </widget>
-              </item>
-              <item>
-                  <spacer name="archiveSpacer">
-                  <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                  </property>
-                  </spacer>
-              </item>
-              <item>
-                  <widget class="QPushButton" name="btn_empty_archive">
-                  <property name="text">
-                  <string>Permanently Empty Archive</string>
-                  </property>
-                  </widget>
-              </item>
-              </layout>
-              </item>
-
-              </layout>
-          </widget>
-          </item>
-          </layout>
-          </widget>
-          <!-- ========== END ARCHIVE VIEW ========== -->
 
          </widget>
         </item>

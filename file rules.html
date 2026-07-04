@@ -1,0 +1,295 @@
+<!DOCTYPE html><html lang="en" class="dark" style=""><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#002e6a",
+                        "surface-bright": "#393939",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "on-surface-variant": "#c2c6d6",
+                        "surface-variant": "#353534",
+                        "primary": "#adc6ff",
+                        "on-tertiary-container": "#340080",
+                        "background": "#131313",
+                        "surface-container-highest": "#353534",
+                        "surface-container-lowest": "#0e0e0e",
+                        "secondary-container": "#324974",
+                        "on-error": "#690005",
+                        "surface-container-low": "#1c1b1b",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-container": "#201f1f",
+                        "primary-container": "#4d8eff",
+                        "inverse-primary": "#005ac2",
+                        "primary-fixed-dim": "#adc6ff",
+                        "tertiary": "#d0bcff",
+                        "primary-fixed": "#d8e2ff",
+                        "inverse-surface": "#e5e2e1",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "on-secondary-fixed-variant": "#304671",
+                        "secondary-fixed-dim": "#b0c6f9",
+                        "on-primary-fixed": "#001a42",
+                        "on-background": "#e5e2e1",
+                        "error": "#ffb4ab",
+                        "outline": "#8c909f",
+                        "outline-variant": "#424754",
+                        "on-primary-fixed-variant": "#004395",
+                        "tertiary-container": "#a078ff",
+                        "secondary": "#b0c6f9",
+                        "surface": "#131313",
+                        "surface-tint": "#adc6ff",
+                        "on-primary-container": "#00285d",
+                        "on-surface": "#e5e2e1",
+                        "tertiary-fixed": "#e9ddff",
+                        "on-secondary-container": "#a2b8ea",
+                        "inverse-on-surface": "#313030",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#001a41",
+                        "on-tertiary": "#3c0091",
+                        "surface-dim": "#131313",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-secondary": "#173059",
+                        "on-tertiary-fixed": "#23005c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "margin": "32px",
+                        "sm": "12px",
+                        "lg": "40px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "max-width": "1440px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    }catch(_e){}</script></head><body class="bg-background text-on-surface flex min-h-screen antialiased font-body-md">
+
+    <!-- Navigation Drawer (Desktop) -->
+    <nav class="hidden lg:flex flex-col fixed left-0 top-0 h-full p-md w-80 bg-surface-container-low border-r border-white/5 z-40">
+        <div class="mb-lg">
+            <div class="font-headline-md text-headline-md text-primary font-bold flex items-center gap-sm"><div class="w-10 h-10 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40" height="40"><rect width="100" height="100" rx="20" fill="#1e1e2e"></rect><rect x="5" y="5" width="90" height="90" rx="15" fill="none" stroke="#89b4fa" stroke-width="2" stroke-opacity="0.3"></rect><g transform="translate(0, -3)"><path d="M35 25h22l13 13v27H35z" fill="#313244" stroke="#cdd6f4" stroke-width="2" stroke-linejoin="round"></path><path d="M57 25v13h13" fill="none" stroke="#cdd6f4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><line x1="42" y1="45" x2="63" y2="45" stroke="#a6adc8" stroke-width="2" stroke-linecap="round"></line><line x1="42" y1="53" x2="55" y2="53" stroke="#a6adc8" stroke-width="2" stroke-linecap="round"></line></g><path d="M20 42h16l5-6h39v39H20z" fill="#45475a" opacity="0.7"></path><path d="M20 46h18l5-6h37v35H20z" fill="#89b4fa"></path><g transform="translate(-5, 12)"><path d="M35 25h15l10 10v20H35z" fill="#fafafa" stroke="#1e1e2e" stroke-width="2" stroke-linejoin="round"></path><path d="M50 25v10h10" fill="none" stroke="#1e1e2e" stroke-width="2" stroke-linejoin="round"></path><circle cx="42" cy="41" r="1.5" fill="#a6e3a1"></circle><line x1="47" y1="41" x2="55" y2="41" stroke="#313244" stroke-width="1.5" stroke-linecap="round"></line><circle cx="42" cy="48" r="1.5" fill="#a6e3a1"></circle><line x1="47" y1="48" x2="53" y2="48" stroke="#313244" stroke-width="1.5" stroke-linecap="round"></line></g><path d="M72 25a1 1 0 0 1 1.6.8l2 6a1 1 0 0 1-1.5 1.2l-5-3a1 1 0 0 1-.1-1.5z" fill="#f38ba8"></path><path d="M73 20c0 5-2 10-6 12" fill="none" stroke="#f38ba8" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 2"></path></svg></div>File Organizer</div>
+        </div>
+        <ul class="flex flex-col gap-sm flex-1">
+            <li class="">
+                <a href="#" class="flex items-center gap-md px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md">
+                    <span class="material-symbols-outlined" data-original-icon="dashboard">dashboard</span>
+                    Dashboard
+                </a>
+            </li>
+            <li class="">
+                <a href="#" class="flex items-center gap-md px-4 py-3 bg-secondary-container text-on-secondary-container font-bold rounded-lg font-label-md text-label-md transition-all duration-150">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">rule</span>
+                    File Rules
+                </a>
+            </li>
+            <li class="">
+                <a href="#" class="flex items-center gap-md px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md">
+                    <span class="material-symbols-outlined" data-original-icon="pending_actions">pending_actions</span>
+                    Active Tasks
+                </a>
+            </li>
+            <li class="">
+                <a href="#" class="flex items-center gap-md px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md">
+                    <span class="material-symbols-outlined">archive</span>
+                    Archive
+                </a>
+            </li>
+            <li class="">
+                <a href="#" class="flex items-center gap-md px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md">
+                    <span class="material-symbols-outlined">settings</span>
+                    System Settings
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <div class="flex-1 lg:ml-80 flex flex-col min-h-screen pb-24 lg:pb-0">
+        
+        <!-- Top App Bar (Mobile) -->
+        <header class="lg:hidden w-full top-0 sticky z-30 bg-surface border-b border-white/10">
+            <div class="flex justify-between items-center px-gutter py-sm max-w-max-width mx-auto">
+                <div class="flex items-center gap-sm">
+                    <button class="text-on-surface-variant p-2">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <span class="font-headline-md text-headline-md font-bold text-primary">📁 FILE ORGANIZER</span>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+                    <span class="material-symbols-outlined text-on-surface-variant">person</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Canvas -->
+        <main class="p-md lg:p-lg max-w-max-width mx-auto w-full flex-1">
+            
+            <header class="mb-lg">
+                <h1 class="font-headline-lg-mobile lg:font-headline-lg text-headline-lg-mobile lg:text-headline-lg mb-xs font-bold font-headline-lg">File Routing Configurations</h1>
+                <p class="text-body-lg text-on-surface-variant font-body-md">Define target destinations based on format extensions.</p>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-gutter">
+                
+                <!-- Left Side: Dense-->
+                <div class="lg:col-span-8">
+                    <div class="bg-surface rounded-xl border border-white/10 overflow-hidden shadow-sm">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-surface-container-low border-b border-white/5 font-label-md text-label-md text-on-surface-variant font-semibold">
+                                        <th class="p-4 font-semibold">Extension</th>
+                                        <th class="p-4 font-semibold">Target Subfolder</th>
+                                        <th class="p-4 font-semibold">Last Modified</th>
+                                        <th class="p-4 font-semibold text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="font-body-md text-body-md">
+                                    <tr class="border-b border-white/5 bg-surface hover:bg-surface-container-high transition-colors group">
+                                        <td class="p-4 flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded bg-tertiary-container/20 text-tertiary flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-sm">description</span>
+                                            </div>
+                                            .pdf
+                                        </td>
+                                        <td class="p-4 text-on-surface-variant">/Documents/PDFs</td>
+                                        <td class="p-4 text-on-surface-variant">Oct 24, 2023</td>
+                                        <td class="p-4 text-right opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">edit</span></button>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-white/5 bg-surface-container-lowest hover:bg-surface-container-high transition-colors group">
+                                        <td class="p-4 flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded bg-primary-container/20 text-primary flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-sm">image</span>
+                                            </div>
+                                            .jpg, .png
+                                        </td>
+                                        <td class="p-4 text-on-surface-variant">/Media/Images</td>
+                                        <td class="p-4 text-on-surface-variant">Oct 22, 2023</td>
+                                        <td class="p-4 text-right opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">edit</span></button>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-white/5 bg-surface hover:bg-surface-container-high transition-colors group">
+                                        <td class="p-4 flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded bg-error-container/20 text-error flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-sm">movie</span>
+                                            </div>
+                                            .mp4, .mov
+                                        </td>
+                                        <td class="p-4 text-on-surface-variant">/Media/Videos</td>
+                                        <td class="p-4 text-on-surface-variant">Oct 20, 2023</td>
+                                        <td class="p-4 text-right opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">edit</span></button>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-white/5 bg-surface-container-lowest hover:bg-surface-container-high transition-colors group">
+                                        <td class="p-4 flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded bg-surface-variant/50 text-on-surface-variant flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-sm">folder_zip</span>
+                                            </div>
+                                            .zip, .tar.gz
+                                        </td>
+                                        <td class="p-4 text-on-surface-variant">/Archives</td>
+                                        <td class="p-4 text-on-surface-variant">Oct 15, 2023</td>
+                                        <td class="p-4 text-right opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">edit</span></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Sticky Action Card (30%) -->
+                <div class="lg:col-span-4">
+                    <div class="sticky top-lg bg-surface rounded-xl border border-white/10 p-md flex flex-col gap-6">
+                        <div>
+                            <h3 class="font-headline-md text-headline-md mb-xs font-semibold">New Rule</h3>
+                            <p class="font-body-md text-body-md text-on-surface-variant">Configure automated routing.</p>
+                        </div>
+                        
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-2">
+                                <label class="font-label-md text-label-md text-on-surface-variant">Apply Preset Template</label>
+                                <div class="relative">
+                                    <select class="w-full bg-surface-container border-outline/30 text-on-surface rounded-lg px-4 py-3 appearance-none focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors">
+                                        <option>Select a preset...</option>
+                                        <option>Standard Media (Images/Video)</option>
+                                        <option>Developer Workspace (Code/Logs)</option>
+                                        <option>Office Documents</option>
+                                    </select>
+                                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+                                </div>
+                            </div>
+                            
+                            <hr class="border-white/5 my-2">
+
+                            <div class="flex flex-col gap-2">
+                                <label class="font-label-md text-label-md text-on-surface">Extension(s)</label>
+                                <input type="text" placeholder="e.g. .docx, .txt" class="w-full bg-surface-container border-outline/30 text-on-surface rounded-lg px-4 py-3 placeholder:text-on-surface-variant/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors">
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label class="font-label-md text-label-md text-on-surface">Destination Path</label>
+                                <div class="flex relative">
+                                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">folder</span>
+                                    <input type="text" placeholder="/Target/Folder" class="w-full pl-10 bg-surface-container border-outline/30 text-on-surface rounded-lg px-4 py-3 placeholder:text-on-surface-variant/50 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="w-full bg-primary hover:bg-primary/90 text-on-primary font-label-md text-label-md py-3 rounded-lg mt-2 transition-colors flex items-center justify-center gap-2">
+                            <span class="material-symbols-outlined text-sm">save</span>
+                            Save Rule Set
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Bottom Nav Bar (Mobile) -->
+    <nav class="lg:hidden fixed bottom-0 w-full z-50 flex justify-around items-center h-20 pb-safe px-2 bg-surface-container shadow-lg rounded-t-xl">
+        <a href="#" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary scale-95 active:scale-90 transition-transform">
+            <span class="material-symbols-outlined">folder_managed</span>
+            <span class="font-label-sm text-label-sm mt-1">Operations</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 hover:text-primary scale-95 active:scale-90 transition-transform">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">rule</span>
+            <span class="font-label-sm text-label-sm mt-1">Rules</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:text-primary scale-95 active:scale-90 transition-transform">
+            </a></nav></body></html>
