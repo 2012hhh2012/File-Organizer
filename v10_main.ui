@@ -128,7 +128,7 @@ QPushButton#btn_nav_dash, QPushButton#btn_nav_rules, QPushButton#btn_nav_tasks, 
 QPushButton#btn_nav_dash:hover, QPushButton#btn_nav_rules:hover, QPushButton#btn_nav_tasks:hover, QPushButton#btn_nav_archive:hover, QPushButton#btn_nav_settings:hover {
     background-color: #2a2a2a; color: #ffffff;
 }
-QPushButton#btn_nav_dash:checked, QPushButton#btn_nav_rules:checked, QPushButton#btn_nav_tasks:checked, QPushButton#btn_nav_archive:checked, QPushButton#btn_nav_settings:checked {
+QPushButton#btn_nav_dash:checked, QPushButton#btn_nav_rules:checked, QPushButton#btn_nav_tasks:checked, QPushButton#btn_nav_archive:checked {
     background-color: #324974; color: #a2b8ea;
 }
 
@@ -263,24 +263,12 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
          </spacer>
         </item>
         <item row="1" column="0">
          <spacer name="hSp_in1">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
           </property>
          </spacer>
         </item>
@@ -323,7 +311,7 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
               </size>
              </property>
              <property name="pixmap">
-              <pixmap>file-organizer-logo.svg</pixmap>
+              <pixmap>logo.svg</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -385,24 +373,12 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
          </spacer>
         </item>
         <item row="2" column="1">
          <spacer name="vSp_in2">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
           </property>
          </spacer>
         </item>
@@ -415,24 +391,12 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
          </spacer>
         </item>
         <item row="1" column="0">
          <spacer name="hSp_up1">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
           </property>
          </spacer>
         </item>
@@ -475,7 +439,7 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
               </size>
              </property>
              <property name="pixmap">
-              <pixmap>file-organizer-logo.svg</pixmap>
+              <pixmap>logo.svg</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -544,24 +508,12 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
          </spacer>
         </item>
         <item row="2" column="1">
          <spacer name="vSp_up2">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
           </property>
          </spacer>
         </item>
@@ -634,7 +586,7 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
                 </size>
                </property>
                <property name="pixmap">
-                <pixmap>file-organizer-logo.svg</pixmap>
+                <pixmap>logo.svg</pixmap>
                </property>
                <property name="scaledContents">
                 <bool>true</bool>
@@ -647,7 +599,7 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
                 <string>font-weight: 800; letter-spacing: 1px; color: #adc6ff; font-size: 15px;</string>
                </property>
                <property name="text">
-                <string>FILE ORGANIZER</string>
+                <string>ORGANIZER</string>
                </property>
               </widget>
              </item>

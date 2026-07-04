@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>System Settings - Monolith Storage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#131313",
+                    "on-secondary-fixed-variant": "#304671",
+                    "tertiary-container": "#a078ff",
+                    "secondary-fixed-dim": "#b0c6f9",
+                    "on-primary-container": "#00285d",
+                    "primary-fixed-dim": "#adc6ff",
+                    "primary": "#adc6ff",
+                    "on-tertiary-fixed-variant": "#5516be",
+                    "on-secondary": "#173059",
+                    "error-container": "#93000a",
+                    "on-primary-fixed": "#001a42",
+                    "surface-bright": "#393939",
+                    "background": "#131313",
+                    "on-background": "#e5e2e1",
+                    "inverse-on-surface": "#313030",
+                    "on-error": "#690005",
+                    "surface-variant": "#353534",
+                    "tertiary-fixed-dim": "#d0bcff",
+                    "primary-container": "#4d8eff",
+                    "on-secondary-fixed": "#001a41",
+                    "error": "#ffb4ab",
+                    "surface-container-low": "#1c1b1b",
+                    "on-surface": "#e5e2e1",
+                    "outline": "#8c909f",
+                    "surface-tint": "#adc6ff",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-tertiary-container": "#340080",
+                    "tertiary-fixed": "#e9ddff",
+                    "on-primary-fixed-variant": "#004395",
+                    "surface": "#131313",
+                    "primary-fixed": "#d8e2ff",
+                    "surface-container-high": "#2a2a2a",
+                    "outline-variant": "#424754",
+                    "inverse-surface": "#e5e2e1",
+                    "secondary-container": "#324974",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed": "#d8e2ff",
+                    "on-surface-variant": "#c2c6d6",
+                    "on-tertiary": "#3c0091",
+                    "surface-container-highest": "#353534",
+                    "surface-container": "#201f1f",
+                    "on-primary": "#002e6a",
+                    "inverse-primary": "#005ac2",
+                    "secondary": "#b0c6f9",
+                    "on-tertiary-fixed": "#23005c",
+                    "tertiary": "#d0bcff",
+                    "on-secondary-container": "#a2b8ea"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "12px",
+                    "gutter": "24px",
+                    "base": "8px",
+                    "max-width": "1440px",
+                    "margin": "32px",
+                    "md": "24px",
+                    "lg": "40px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0A0A0A;
+            color: #e5e2e1;
+            font-family: 'Inter', sans-serif;
+        }
+        .monolith-card {
+            background-color: #121212;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 24px;
+        }
+        .monolith-input {
+            background-color: #1E1E1E;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .monolith-input:focus {
+            border-color: #3B82F6;
+            outline: none;
+            box-shadow: 0 0 0 1px #3B82F6;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen overflow-x-hidden">
+<!-- Navigation Drawer (SideNav) -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-0 h-full w-80 p-md bg-surface-container-low border-r border-white/5 z-40">
+<!-- Brand Header -->
+<div class="flex items-center gap-3 px-4 mb-lg">
+<div class="w-8 h-8 text-primary">
+                {{DATA:DOCUMENT:DOCUMENT_5}}
+            </div>
+<span class="font-headline-md text-headline-md font-bold text-primary">File Organizer</span>
+</div>
+<!-- Nav Items -->
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md rounded-lg" href="#">
+<span class="material-symbols-outlined">rule</span>
+                File Rules
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md rounded-lg" href="#">
+<span class="material-symbols-outlined">pending_actions</span>
+                Active Tasks
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md rounded-lg" href="#">
+<span class="material-symbols-outlined">archive</span>
+                Archive
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 bg-secondary-container text-on-secondary-container font-bold font-label-md text-label-md rounded-lg shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+                System Settings
+            </a>
+</nav>
+<!-- User Profile Quick Access (Bottom of Nav) -->
+<div class="mt-auto p-4 bg-surface-container-high/50 rounded-xl flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-primary-container flex items-center justify-center text-on-primary-container">
+<img class="w-full h-full object-cover" data-alt="A professional high-resolution close-up portrait of a digital security expert in a modern minimalist office environment. The lighting is low-key with cool blue accents reflecting off sleek glass surfaces, creating a sophisticated and tech-focused atmosphere. The overall aesthetic is dark and clean, matching a high-performance monolith design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHUAkzU-eNn6p66kqqXsN9j5m12zPCpc7jsy4XKxGV1ooZtoGBFxuhi6p06a5jWCyXkaWK-bmr7XM7EZwv9UtzF_NbA5YOzt8jrwr5vgicJx4LHeh_Xnbe1QekHFhUbb-ipD850gWDKBXGrxE4gUCoFYK1g6O9b8NkfvGIFnBChJIPHoU_iZ8gr1xGzxR2iRosWDwwmpUXOOGbdsXIZLuEnFAyCRSpsob-Hj2US0-DYBaaD9l485k"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-label-md font-bold truncate">admin_user</p>
+<p class="text-label-sm text-on-surface-variant truncate">System Administrator</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-0 lg:ml-80 bg-surface-dim min-h-screen">
+<!-- Top App Bar (Title Placeholder for Layout Consistency) -->
+<header class="w-full top-0 bg-surface border-b border-white/10 sticky z-30">
+<div class="flex justify-between items-center px-gutter py-sm max-w-max-width mx-auto">
+<div class="flex items-center lg:hidden">
+<span class="material-symbols-outlined text-primary">menu</span>
+</div>
+<div class="hidden lg:block">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">System Settings</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container font-bold text-xs flex items-center justify-center">
+                        AU
+                    </div>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="max-w-4xl mx-auto px-gutter py-lg space-y-lg">
+<!-- Section Header -->
+<div class="space-y-xs">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Security &amp; Account</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage your account identity and authentication details.</p>
+</div>
+<!-- Card 1: Profile Identity -->
+<section class="monolith-card space-y-gutter">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-2xl">badge</span>
+<h3 class="font-headline-md text-headline-md">Profile Identity</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Username Field -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant block">Username</label>
+<div class="flex gap-2">
+<input class="monolith-input flex-1 px-4 py-2 rounded-lg text-body-md text-on-surface font-body-md" placeholder="Enter username" type="text" value="admin_user"/>
+<button class="bg-secondary-container hover:bg-secondary-container/80 text-on-secondary-container px-4 py-2 rounded-lg font-label-md text-label-md transition-colors">Update</button>
+</div>
+</div>
+<!-- Email Field -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant block">Email Address</label>
+<div class="flex gap-2">
+<input class="monolith-input flex-1 px-4 py-2 rounded-lg text-body-md text-on-surface font-body-md" placeholder="Enter email" type="email" value="admin@example.com"/>
+<button class="bg-secondary-container hover:bg-secondary-container/80 text-on-secondary-container px-4 py-2 rounded-lg font-label-md text-label-md transition-colors">Update</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Card 2: Password Authentication -->
+<section class="monolith-card space-y-gutter relative overflow-hidden">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-2xl">lock</span>
+<h3 class="font-headline-md text-headline-md">Password Authentication</h3>
+</div>
+<div class="space-y-6 max-w-xl">
+<!-- Current Password -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant block">Current Password</label>
+<input class="monolith-input w-full px-4 py-3 rounded-lg text-body-md text-on-surface font-body-md" placeholder="••••••••••••" type="password"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- New Password -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant block">New Password</label>
+<input class="monolith-input w-full px-4 py-3 rounded-lg text-body-md text-on-surface font-body-md" placeholder="New secret" type="password"/>
+</div>
+<!-- Confirm New Password -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant block">Confirm New Password</label>
+<input class="monolith-input w-full px-4 py-3 rounded-lg text-body-md text-on-surface font-body-md" placeholder="Confirm secret" type="password"/>
+</div>
+</div>
+<!-- Action Button -->
+<div class="pt-4">
+<button class="bg-primary hover:bg-primary-container text-on-primary font-bold px-8 py-4 rounded-xl font-body-lg text-body-lg transition-all transform active:scale-95 shadow-lg shadow-primary/10">
+                            Save Security Changes
+                        </button>
+</div>
+</div>
+<!-- Subtle Accent for Password Strength or Info -->
+<div class="absolute top-0 right-0 p-8 hidden md:block opacity-10">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+</section>
+<!-- Footer-style Info -->
+<div class="flex justify-between items-center px-4 py-md text-on-surface-variant opacity-60">
+<p class="font-label-sm text-label-sm">Last security audit: 2 hours ago</p>
+<div class="flex gap-4">
+<a class="font-label-sm text-label-sm hover:text-primary underline" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm hover:text-primary underline" href="#">Session Logs</a>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Navigation (Bottom Nav) -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center h-20 pb-safe px-2 bg-surface-container shadow-lg md:hidden">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">folder_managed</span>
+<span class="font-label-sm text-label-sm">Operations</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">rule</span>
+<span class="font-label-sm text-label-sm">Rules</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-sm text-label-sm">History</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction for input fields
+        document.querySelectorAll('.monolith-input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.closest('.monolith-card').style.borderColor = 'rgba(59, 130, 246, 0.3)';
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.closest('.monolith-card').style.borderColor = 'rgba(255, 255, 255, 0.08)';
+            });
+        });
+
+        // Simple button click effect
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.style.transform = 'scale(0.98)');
+            btn.addEventListener('mouseup', () => btn.style.transform = 'scale(1)');
+        });
+    </script>
+</body></html>
