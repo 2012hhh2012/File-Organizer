@@ -799,7 +799,7 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
         <item>
          <widget class="QStackedWidget" name="stackedWidget_app">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="dashboard_view">
            <layout class="QVBoxLayout" name="verticalLayout_dash_body">

@@ -10,10 +10,16 @@ class MainWindow(QMainWindow):
         self.data = self.read_json()
         self.current_user = None
         self.show_signin()
+        # self.table_rules_full.resizeColumnsToContents()
         self.btn_signin.clicked.connect(self.handel_signin)
         self.btn_go_signup.clicked.connect(self.show_signup)
         self.btn_signup.clicked.connect(self.handel_signup)
         self.btn_go_signin.clicked.connect(self.show_signin)
+        self.btn_nav_dash.clicked.connect(lambda: self.show_app_page(0))
+        self.btn_nav_rules.clicked.connect(lambda: self.show_app_page(1))
+        self.btn_nav_tasks.clicked.connect(lambda: self.show_app_page(2))
+        self.btn_nav_archive.clicked.connect(lambda: self.show_app_page(3))
+        self.btn_nav_settings.clicked.connect(lambda: self.show_app_page(4))
 
     def handel_signin(self):
         email = self.txt_signin_email.text()
@@ -23,7 +29,7 @@ class MainWindow(QMainWindow):
                 self.txt_signin_email.clear()
                 self.txt_signin_password.clear()
                 QMessageBox.information(self, "Success", "Login successful")
-                self.show_dashboard()
+                self.show_app_page(0)
                 self.current_user = user
                 break
         else:
@@ -55,12 +61,12 @@ class MainWindow(QMainWindow):
         self.txt_signup_username.clear()
         self.txt_signup_password.clear()
         QMessageBox.information(self, "Success", "Registration successful")
-        self.show_dashboard()
+        self.show_app_page(0)
         self.current_user = new_user
 
-    def show_dashboard(self):
+    def show_app_page(self, index):
         self.stackedWidget_main.setCurrentIndex(2)
-        self.stackedWidget_app.setCurrentIndex(0)
+        self.stackedWidget_app.setCurrentIndex(index)
 
     def show_signin(self):
         self.txt_signin_email.clear()
