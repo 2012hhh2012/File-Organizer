@@ -14,14 +14,11 @@
    <string>Monolith File Organizer</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/* ================= MONOLITH CORE MASTER THEME ================= */
+   <string>
+/* ================= MONOLITH CORE MASTER THEME ================= */
 * {
     font-family: &quot;Inter&quot;, &quot;Segoe UI&quot;, sans-serif;
     color: #e5e2e1;
-}
-QDialog {
-    background-color: #0A0A0A;
-    color: white;
 }
 QMainWindow, QWidget#centralwidget, QStackedWidget, QWidget#signin, QWidget#signup {
     background-color: #0A0A0A;
@@ -214,48 +211,6 @@ QPushButton#btn_privacy_policy:hover, QPushButton#btn_session_logs:hover {
     color: #adc6ff;
 }
 
-/* ---------- Additional inline styles moved here ---------- */
-QLabel#lbl_side_appname {
-    font-weight: 800;
-    letter-spacing: 1px;
-    color: #adc6ff;
-    font-size: 15px;
-}
-QLabel#lbl_target_tag {
-    font-size: 10px;
-    font-weight: bold;
-    color: #8c909f;
-    letter-spacing: 1px;
-}
-QLabel#lbl_log_header {
-    font-size: 11px;
-    color: #8c909f;
-    margin-top: 6px;
-}
-QLabel#lbl_preset {
-    font-size: 12px;
-    color: #8c909f;
-    font-weight: bold;
-}
-QLabel#lbl_ext, QLabel#lbl_dest {
-    font-size: 13px;
-    color: #e5e2e1;
-    font-weight: 600;
-}
-QPushButton#btn_save_rule {
-    margin-top: 8px;
-}
-QLabel#lbl_profile_title, QLabel#lbl_password_title {
-    font-size: 16px;
-    font-weight: bold;
-    color: #e5e2e1;
-}
-QLabel#lbl_username_label, QLabel#lbl_email_label,
-QLabel#lbl_current_password, QLabel#lbl_new_password, QLabel#lbl_confirm_password {
-    font-size: 13px;
-    color: #c2c6d6;
-}
-
 /* Tables and Console Log */
 QPlainTextEdit#txt_activity_log {
     background-color: #0e0e0e; color: #adc6ff; border: 1px solid #2a2a2a; border-radius: 8px; font-family: monospace; font-size: 11px;
@@ -264,7 +219,7 @@ QTableWidget {
     background-color: transparent; border: none; gridline-color: #2a2a2a;
 }
 QTableWidget::viewport {
-    background-color: transparent;
+    background-color: transparent; 
 }
 QTableWidget::item {
     padding: 8px 4px; border-bottom: 1px solid #2a2a2a; color: #c2c6d6; font-size: 13px;
@@ -279,7 +234,8 @@ QHeaderView::section {
 /* Checkbox */
 QCheckBox { font-size: 12px; spacing: 8px; }
 QCheckBox::indicator { width: 16px; height: 16px; border-radius: 4px; border: 1px solid #8c909f; background: #131313; }
-QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }</string>
+QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
+   </string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_main">
@@ -687,6 +643,9 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
              </item>
              <item>
               <widget class="QLabel" name="lbl_side_appname">
+               <property name="styleSheet">
+                <string>font-weight: 800; letter-spacing: 1px; color: #adc6ff; font-size: 15px;</string>
+               </property>
                <property name="text">
                 <string>FILE ORGANIZER</string>
                </property>
@@ -703,9 +662,6 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
               <string>  Dashboard</string>
              </property>
              <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="checked">
               <bool>true</bool>
              </property>
              <property name="autoExclusive">
@@ -741,7 +697,7 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
               <bool>true</bool>
              </property>
              <property name="checked">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
              <property name="autoExclusive">
               <bool>true</bool>
@@ -864,6 +820,9 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
                  </item>
                  <item>
                   <widget class="QLabel" name="lbl_target_tag">
+                   <property name="styleSheet">
+                    <string>font-size: 10px; font-weight: bold; color: #8c909f; letter-spacing: 1px;</string>
+                   </property>
                    <property name="text">
                     <string>TARGET FOLDER</string>
                    </property>
@@ -915,6 +874,9 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
                  </item>
                  <item>
                   <widget class="QLabel" name="lbl_log_header">
+                   <property name="styleSheet">
+                    <string>font-size: 11px; color: #8c909f; margin-top: 6px;</string>
+                   </property>
                    <property name="text">
                     <string>Console Log</string>
                    </property>
@@ -1364,6 +1326,9 @@ _</string>
                        </property>
                        <item>
                         <widget class="QLabel" name="lbl_preset">
+                         <property name="styleSheet">
+                          <string>font-size: 12px; color: #8c909f; font-weight: bold;</string>
+                         </property>
                          <property name="text">
                           <string>Apply Preset Template</string>
                          </property>
@@ -1397,6 +1362,9 @@ _</string>
                      </item>
                      <item>
                       <widget class="Line" name="line_rule_sep">
+                       <property name="styleSheet">
+                        <string>color: #2a2a2a;</string>
+                       </property>
                        <property name="orientation">
                         <enum>Qt::Horizontal</enum>
                        </property>
@@ -1409,6 +1377,9 @@ _</string>
                        </property>
                        <item>
                         <widget class="QLabel" name="lbl_ext">
+                         <property name="styleSheet">
+                          <string>font-size: 13px; color: #e5e2e1; font-weight: 600;</string>
+                         </property>
                          <property name="text">
                           <string>Extension(s)</string>
                          </property>
@@ -1430,6 +1401,9 @@ _</string>
                        </property>
                        <item>
                         <widget class="QLabel" name="lbl_dest">
+                         <property name="styleSheet">
+                          <string>font-size: 13px; color: #e5e2e1; font-weight: 600;</string>
+                         </property>
                          <property name="text">
                           <string>Destination Path</string>
                          </property>
@@ -1450,6 +1424,9 @@ _</string>
                     <widget class="QPushButton" name="btn_save_rule">
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="styleSheet">
+                      <string>margin-top: 8px;</string>
                      </property>
                      <property name="text">
                       <string>Save Rule Set</string>
@@ -2067,6 +2044,9 @@ _</string>
                </property>
                <item>
                 <widget class="QLabel" name="lbl_profile_title">
+                 <property name="styleSheet">
+                  <string>font-size: 16px; font-weight: bold; color: #e5e2e1;</string>
+                 </property>
                  <property name="text">
                   <string>Profile Identity</string>
                  </property>
@@ -2081,6 +2061,9 @@ _</string>
                      <width>100</width>
                      <height>0</height>
                     </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string>font-size: 13px; color: #c2c6d6;</string>
                    </property>
                    <property name="text">
                     <string>Username</string>
@@ -2118,6 +2101,9 @@ _</string>
                      <width>100</width>
                      <height>0</height>
                     </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string>font-size: 13px; color: #c2c6d6;</string>
                    </property>
                    <property name="text">
                     <string>Email Address</string>
@@ -2169,6 +2155,9 @@ _</string>
                </property>
                <item>
                 <widget class="QLabel" name="lbl_password_title">
+                 <property name="styleSheet">
+                  <string>font-size: 16px; font-weight: bold; color: #e5e2e1;</string>
+                 </property>
                  <property name="text">
                   <string>Password Authentication</string>
                  </property>
@@ -2178,6 +2167,9 @@ _</string>
                 <layout class="QVBoxLayout" name="currentPasswordLayout">
                  <item>
                   <widget class="QLabel" name="lbl_current_password">
+                   <property name="styleSheet">
+                    <string>font-size: 13px; color: #c2c6d6;</string>
+                   </property>
                    <property name="text">
                     <string>Current Password</string>
                    </property>
@@ -2201,6 +2193,9 @@ _</string>
                   <layout class="QVBoxLayout" name="newPasswordLayout">
                    <item>
                     <widget class="QLabel" name="lbl_new_password">
+                     <property name="styleSheet">
+                      <string>font-size: 13px; color: #c2c6d6;</string>
+                     </property>
                      <property name="text">
                       <string>New Password</string>
                      </property>
@@ -2222,6 +2217,9 @@ _</string>
                   <layout class="QVBoxLayout" name="confirmPasswordLayout">
                    <item>
                     <widget class="QLabel" name="lbl_confirm_password">
+                     <property name="styleSheet">
+                      <string>font-size: 13px; color: #c2c6d6;</string>
+                     </property>
                      <property name="text">
                       <string>Confirm New Password</string>
                      </property>

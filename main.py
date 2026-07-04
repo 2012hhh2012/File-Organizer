@@ -9,6 +9,7 @@ class MainWindow(QMainWindow):
         uic.loadUi("main.ui", self)
         self.data = self.read_json()
         self.current_user = None
+        self.show_signin()
         self.btn_signin.clicked.connect(self.handel_signin)
         self.btn_go_signup.clicked.connect(self.show_signup)
         self.btn_signup.clicked.connect(self.handel_signup)
@@ -22,7 +23,7 @@ class MainWindow(QMainWindow):
                 self.txt_signin_email.clear()
                 self.txt_signin_password.clear()
                 QMessageBox.information(self, "Success", "Login successful")
-                self.stackedWidget.setCurrentIndex(2)
+                self.show_dashboard()
                 self.current_user = user
                 break
         else:
@@ -54,19 +55,35 @@ class MainWindow(QMainWindow):
         self.txt_signup_username.clear()
         self.txt_signup_password.clear()
         QMessageBox.information(self, "Success", "Registration successful")
-        self.stackedWidget.setCurrentIndex(2)
+        self.show_dashboard()
         self.current_user = new_user
+
+    def show_dashboard(self):
+        self.stackedWidget_main.setCurrentIndex(2)
+        self.stackedWidget_app.setCurrentIndex(0)
 
     def show_signin(self):
         self.txt_signin_email.clear()
         self.txt_signin_password.clear()
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget_main.setCurrentIndex(0)
 
     def show_signup(self):
         self.txt_signup_email.clear()
         self.txt_signup_username.clear()
         self.txt_signup_password.clear()
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget_main.setCurrentIndex(1)
+
+    # pages order:
+    # - stackedWidget_main
+    #   - 0: signin
+    #   - 1: signup
+    #   - 2: main_app
+    #     - stackedWidget_app
+    #       - 0: dashboard_view
+    #       - 1: rules_view
+    #       - 2: tasks_view      
+    #       - 3: archive_view
+    #       - 4: settings_view
 
     def save_json(self, data):
         with open("data.json", "w", encoding="utf-8") as file:
