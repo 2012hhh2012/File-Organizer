@@ -2,6 +2,35 @@
     {
         "email": "test@test.test",
         "username": "test",
-        "password": "test"
+        "password": "test",
+        "rules": {
+                ".pdf": "Documents",
+                ".docx": "Documents",
+                ".jpg": "Images",
+                ".png": "Images",
+                ".mp4": "Videos",
+                ".mov": "Videos",
+                ".mp3": "Music",
+                ".wav": "Music",
+                ".zip": "Archives",
+                ".gz": "Archives"
+            }
+    },
+    {
+        "email": "1",
+        "username": "1",
+        "password": "1",
+        "rules": {
+                ".pdf": "Documents",
+                ".docx": "Documents",
+                ".jpg": "Images",
+                ".png": "Images",
+                ".mp4": "Videos",
+                ".mov": "Videos",
+                ".mp3": "Music",
+                ".wav": "Music",
+                ".zip": "Archives",
+                ".gz": "Archives"
+            }
     }
 ]

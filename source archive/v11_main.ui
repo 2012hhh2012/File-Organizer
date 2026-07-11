@@ -120,40 +120,13 @@ QFrame#sidebarFrame {
     background-color: #1c1b1b;
     border-right: 1px solid #2a2a2a;
 }
-
-/* Sidebar User Info */
-QLabel#lbl_sidebar_username {
-    font-size: 14px;
-    font-weight: bold;
-    color: #e5e2e1;
-    padding: 8px 14px 4px 14px;
-}
-
-/* Sign Out Button */
-QPushButton#btn_signout {
-    background-color: #93000a;
-    color: #ffb4ab;
-    border-radius: 6px;
-    padding: 10px 14px;
-    font-size: 13px;
-    font-weight: bold;
-    text-align: left;
-}
-QPushButton#btn_signout:hover {
-    background-color: #ffb4ab;
-    color: #690005;
-}
-QPushButton#btn_signout:pressed {
-    background-color: #ffdad6;
-}
-
 QPushButton#btn_nav_dash, QPushButton#btn_nav_rules, QPushButton#btn_nav_tasks, QPushButton#btn_nav_archive, QPushButton#btn_nav_settings {
     background-color: transparent;
     color: #c2c6d6;
     text-align: left;
     padding: 10px 14px;
     border-radius: 6px;
-    font-weight: bold;
+    font-weight: 600;
 }
 QPushButton#btn_nav_dash:hover, QPushButton#btn_nav_rules:hover, QPushButton#btn_nav_tasks:hover, QPushButton#btn_nav_archive:hover, QPushButton#btn_nav_settings:hover {
     background-color: #2a2a2a; color: #ffffff;
@@ -243,7 +216,7 @@ QPushButton#btn_privacy_policy:hover, QPushButton#btn_session_logs:hover {
 
 /* ---------- Additional inline styles moved here ---------- */
 QLabel#lbl_side_appname {
-    font-weight: bold;
+    font-weight: 800;
     letter-spacing: 1px;
     color: #adc6ff;
     font-size: 15px;
@@ -267,7 +240,7 @@ QLabel#lbl_preset {
 QLabel#lbl_ext, QLabel#lbl_dest {
     font-size: 13px;
     color: #e5e2e1;
-    font-weight: bold;
+    font-weight: 600;
 }
 QPushButton#btn_save_rule {
     margin-top: 8px;
@@ -805,26 +778,6 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="lbl_sidebar_username">
-             <property name="text">
-              <string>Username: Test</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="btn_signout">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="text">
-              <string>  Sign Out</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="btn_nav_settings">
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
@@ -1025,7 +978,7 @@ _</string>
                     <bool>false</bool>
                    </property>
                    <property name="rowCount">
-                    <number>5</number>
+                    <number>4</number>
                    </property>
                    <property name="columnCount">
                     <number>2</number>
@@ -1036,31 +989,10 @@ _</string>
                    <attribute name="verticalHeaderVisible">
                     <bool>false</bool>
                    </attribute>
-                   <row>
-                    <property name="text">
-                     <string>1</string>
-                    </property>
-                   </row>
-                   <row>
-                    <property name="text">
-                     <string>2</string>
-                    </property>
-                   </row>
-                   <row>
-                    <property name="text">
-                     <string>3</string>
-                    </property>
-                   </row>
-                   <row>
-                    <property name="text">
-                     <string>4</string>
-                    </property>
-                   </row>
-                   <row>
-                    <property name="text">
-                     <string>5</string>
-                    </property>
-                   </row>
+                   <row/>
+                   <row/>
+                   <row/>
+                   <row/>
                    <column>
                     <property name="text">
                      <string>Extension</string>
@@ -1073,12 +1005,12 @@ _</string>
                    </column>
                    <item row="0" column="0">
                     <property name="text">
-                     <string>.pdf, .docx</string>
+                     <string>.pdf</string>
                     </property>
                    </item>
                    <item row="0" column="1">
                     <property name="text">
-                     <string>Documents</string>
+                     <string>Documents/PDFs</string>
                     </property>
                    </item>
                    <item row="1" column="0">
@@ -1088,7 +1020,7 @@ _</string>
                    </item>
                    <item row="1" column="1">
                     <property name="text">
-                     <string>Images</string>
+                     <string>Images/Work</string>
                     </property>
                    </item>
                    <item row="2" column="0">
@@ -1098,27 +1030,17 @@ _</string>
                    </item>
                    <item row="2" column="1">
                     <property name="text">
-                     <string>Archives</string>
+                     <string>Archives/System</string>
                     </property>
                    </item>
                    <item row="3" column="0">
                     <property name="text">
-                     <string>.mp3</string>
+                     <string>.mp4</string>
                     </property>
                    </item>
                    <item row="3" column="1">
                     <property name="text">
-                     <string>Music</string>
-                    </property>
-                   </item>
-                   <item row="4" column="0">
-                    <property name="text">
-                     <string>.mp4</string>
-                    </property>
-                   </item>
-                   <item row="4" column="1">
-                    <property name="text">
-                     <string>Videos</string>
+                     <string>Media/Video</string>
                     </property>
                    </item>
                   </widget>
