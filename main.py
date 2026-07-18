@@ -1,4 +1,5 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem
+from PyQt6.QtGui import QIcon
 from PyQt6 import uic
 import sys
 import json
@@ -12,6 +13,8 @@ class MainWindow(QMainWindow):
 
         self.user_manager = UserManager()
         self.show_signin()
+
+        self.setWindowIcon(QIcon("file-organizer-logo.svg"))
 
         self.btn_signin.clicked.connect(self.handel_signin)
         self.btn_go_signup.clicked.connect(self.show_signup)

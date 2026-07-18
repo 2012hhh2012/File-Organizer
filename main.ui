@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Monolith File Organizer</string>
+   <string>File Organizer</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/* ================= MONOLITH CORE MASTER THEME ================= */
