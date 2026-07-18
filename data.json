@@ -3,34 +3,82 @@
         "email": "test@test.test",
         "username": "test",
         "password": "test",
+        "rules_preset": "Documents",
         "rules": {
-                ".pdf": "Documents",
-                ".docx": "Documents",
-                ".jpg": "Images",
-                ".png": "Images",
-                ".mp4": "Videos",
-                ".mov": "Videos",
-                ".mp3": "Music",
-                ".wav": "Music",
-                ".zip": "Archives",
-                ".gz": "Archives"
-            }
+            "Documents": [
+                ".pdf",
+                ".docx"
+            ],
+            "Images": [
+                ".jpg",
+                ".png"
+            ],
+            "Videos": [
+                ".mp4",
+                ".mov"
+            ],
+            "Music": [
+                ".mp3",
+                ".wav"
+            ],
+            "Archives": [
+                ".zip",
+                ".gz"
+            ]
+        }
     },
     {
         "email": "1",
         "username": "1",
         "password": "1",
+        "rules_preset": "Documents",
         "rules": {
-                ".pdf": "Documents",
-                ".docx": "Documents",
-                ".jpg": "Images",
-                ".png": "Images",
-                ".mp4": "Videos",
-                ".mov": "Videos",
-                ".mp3": "Music",
-                ".wav": "Music",
-                ".zip": "Archives",
-                ".gz": "Archives"
+                "Documents": [".pdf", ".docx", ".txt", ".rtf", ".odt"],
+                "Images": [".jpg", ".png", ".gif", ".bmp", ".svg"],
+                "Videos": [".mp4", ".mov", ".avi", ".mkv"],
+                "Music": [".mp3", ".wav", ".flac", ".aac"],
+                "Archives": [".zip", ".rar", ".7z", ".tar", ".gz"],
+                "Installers": [".exe", ".msi", ".dmg", ".pkg", ".deb", ".rpm"],
+                "Disk Images": [".iso", ".img", ".bin"],
+                "Torrents": [".torrent"],
+                "Scripts": [".bat", ".sh", ".ps1", ".py", ".js"],
+                "Spreadsheets": [".xlsx", ".xls", ".csv"],
+                "Presentations": [".pptx", ".ppt", ".odp"],
+                "Code": [".py", ".js", ".html", ".css", ".cpp", ".java"],
+                "Text": [".txt", ".log", ".md"],
+                "Fonts": [".ttf", ".otf"],
+                "Databases": [".db", ".sqlite", ".sql"]
             }
+    },
+    {
+        "email": "12",
+        "username": "12",
+        "password": "12",
+        "rules_preset": "Documents",
+        "rules": {
+            "Documents": [
+                ".pdf",
+                ".docx"
+            ],
+            "Images": [
+                ".jpg",
+                ".png"
+            ],
+            "Videos": [
+                ".mp4",
+                ".mov"
+            ],
+            "Music": [
+                ".mp3",
+                ".wav"
+            ],
+            "Archives": [
+                ".zip",
+                ".gz"
+            ],
+            "Texts": [
+                ".txt"
+            ]
+        }
     }
 ]

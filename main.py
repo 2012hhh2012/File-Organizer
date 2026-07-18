@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
+from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem
 from PyQt6 import uic
 import sys
 import json
@@ -12,8 +12,6 @@ class MainWindow(QMainWindow):
 
         self.user_manager = UserManager()
         self.show_signin()
-
-        # self.table_rules_full.resizeColumnsToContents()
 
         self.btn_signin.clicked.connect(self.handel_signin)
         self.btn_go_signup.clicked.connect(self.show_signup)
@@ -31,6 +29,62 @@ class MainWindow(QMainWindow):
         self.btn_browse_folder.clicked.connect(self.browse_folder)
         self.btn_run_cleanup.clicked.connect(self.run_cleanup)
 
+        self.btn_add_rule.clicked.connect(self.add_rule)
+        self.btn_remove_rule.clicked.connect(self.remove_rule)
+
+    def load_user(self):
+        # Display username
+        self.lbl_sidebar_username.setText(f"Username: {self.user_manager.current_user["username"]}")
+
+        # Load rules tables
+        self.table_rules.setRowCount(0)
+        self.table_rules_full.setRowCount(0)
+
+        rules = self.user_manager.current_user["rules"]
+
+        for folder, exts in rules.items():
+            row = self.table_rules.rowCount()
+
+            self.table_rules.insertRow(row)
+            self.table_rules_full.insertRow(row)
+
+            ext_string = ", ".join(exts)
+
+            self.table_rules.setItem(row, 0, QTableWidgetItem(ext_string))
+            self.table_rules.setItem(row, 1, QTableWidgetItem(folder))
+            self.table_rules_full.setItem(row, 0, QTableWidgetItem(ext_string))
+            self.table_rules_full.setItem(row, 1, QTableWidgetItem(folder))
+
+        self.table_rules.resizeColumnsToContents()
+        self.table_rules_full.resizeColumnsToContents()
+
+    def add_rule(self):
+        row = self.table_rules.rowCount()
+        ext = self.txt_new_ext.text()
+        dest = self.txt_new_dest.text()
+
+        self.user_manager.add_rule(ext, dest)
+
+        self.txt_new_ext.clear()
+        self.txt_new_dest.clear()
+
+        self.table_rules.insertRow(row)
+        self.table_rules.setItem(row, 0, QTableWidgetItem(ext))
+        self.table_rules.setItem(row, 1, QTableWidgetItem(dest))
+
+    def remove_rule(self):
+        row = self.table_rules.currentRow()
+
+        if row < 1:
+            QMessageBox.critical(self, "Error", "Please select a rule to remove")
+            return
+        
+        dest = self.table_rules.item(row, 1).text()
+
+        self.user_manager.remove_rule(dest)
+
+        self.table_rules.removeRow(row)
+
     def calculate_file_hash(self, filepath, chunk_size=8192):
         """Generates an MD5 hash for a file in a memory-efficient way."""
         hasher = hashlib.md5()
@@ -44,7 +98,6 @@ class MainWindow(QMainWindow):
         remove_duplicate = self.chk_dedup.isChecked()
         file_hashes = []
         for filename in os.listdir(path):
-            rules = self.user_manager.get_rules()
             root, ext = os.path.splitext(filename)
             filepath = os.path.join(path, filename)
             if os.path.isfile(filepath):
@@ -52,17 +105,17 @@ class MainWindow(QMainWindow):
                     file_hash = self.calculate_file_hash(filepath)
                     if file_hash in file_hashes:
                         os.remove(filepath)
-                        print(f"Duplicate file found and removed: {filepath}")
+                        print(f"Duplicate file {filename} found and removed: {filepath}")
                         continue
 
                 file_hashes.append(file_hash)
-                destination = rules.get(ext, None)
+                destination = self.user_manager.get_directory(ext)
 
                 if destination:
                     if not os.path.exists(os.path.join(path, destination)):
                         os.makedirs(os.path.join(path, destination))
                     os.rename(filepath, os.path.join(path, destination, filename))
-                    print(f"File moved to {destination}")
+                    print(f"File {filename} moved to {destination}")
 
         QMessageBox.information(self, "Success", "Cleanup completed successfully")
 
@@ -80,11 +133,12 @@ class MainWindow(QMainWindow):
     def handel_signin(self):
         email = self.txt_signin_email.text()
         password = self.txt_signin_password.text()
-        status = self.user_manager.verify_user(email, password)
+        status = self.user_manager.sign_in(email, password)
         if status:
             self.txt_signin_email.clear()
             self.txt_signin_password.clear()
             QMessageBox.information(self, "Success", "Login successful")
+            self.load_user()
             self.show_app_page(0)
         else:
             self.txt_signin_email.clear()
@@ -95,12 +149,13 @@ class MainWindow(QMainWindow):
         email = self.txt_signup_email.text()
         username = self.txt_signup_username.text()
         password = self.txt_signup_password.text()
-        status = self.user_manager.add_user(email, username, password)
+        status = self.user_manager.sign_up(email, username, password)
         if status:
             self.txt_signup_email.clear()
             self.txt_signup_username.clear()
             self.txt_signup_password.clear()
             QMessageBox.information(self, "Success", "Registration successful")
+            self.load_user()
             self.show_app_page(0)
 
     def handel_signout(self):
@@ -138,49 +193,78 @@ class UserManager:
     def __init__(self):
         self.users = self.read_json()
         self.current_user = None
+        self.current_rules = {}
 
-    def add_user(self, email, username, password):
-        for user in self.data:
+    def parse_rules(self):
+        if self.current_user:
+            rules = self.current_user["rules"]
+            for folder, extensions in rules.items():
+                for ext in extensions:
+                    self.current_rules[ext] = folder
+
+    def get_directory(self, ext):
+        return self.current_rules.get(ext, None)
+    
+    def add_rule(self, exts, dest):
+        extension_list = [ext.strip() for ext in exts.split(",") if ext.strip()]
+        self.current_user["rules"][dest] = extension_list
+        self.parse_rules()
+        self.save_json(self.users)
+
+    def remove_rule(self, dest):
+        del self.current_user["rules"][dest]
+        self.parse_rules()
+        self.save_json(self.users)
+
+    def sign_up(self, email, username, password):
+        for user in self.users:
             if user["email"] == email:
                 self.txt_signup_email.clear()
                 QMessageBox.critical(self, "Error", "Email already exists")
                 return False
+            
             elif user["username"] == username:
                 self.txt_signup_username.clear()
                 QMessageBox.critical(self, "Error", "Username already exists")
                 return False
+            
         new_user = {
             "email": email,
             "username": username,
             "password": password,
+            "rules_preset": "Documents",
             "rules": {
-                ".pdf": "Documents",
-                ".docx": "Documents",
-                ".jpg": "Images",
-                ".png": "Images",
-                ".mp4": "Videos",
-                ".mov": "Videos",
-                ".mp3": "Music",
-                ".wav": "Music",
-                ".zip": "Archives",
-                ".gz": "Archives"
+                "Documents": [".pdf", ".docx", ".txt", ".rtf", ".odt"],
+                "Images": [".jpg", ".png", ".gif", ".bmp", ".svg"],
+                "Videos": [".mp4", ".mov", ".avi", ".mkv"],
+                "Music": [".mp3", ".wav", ".flac", ".aac"],
+                "Archives": [".zip", ".rar", ".7z", ".tar", ".gz"],
+                "Installers": [".exe", ".msi", ".dmg", ".pkg", ".deb", ".rpm"],
+                "Disk Images": [".iso", ".img", ".bin"],
+                "Torrents": [".torrent"],
+                "Scripts": [".bat", ".sh", ".ps1", ".py", ".js"],
+                "Spreadsheets": [".xlsx", ".xls", ".csv"],
+                "Presentations": [".pptx", ".ppt", ".odp"],
+                "Code": [".py", ".js", ".html", ".css", ".cpp", ".java"],
+                "Text": [".txt", ".log", ".md"],
+                "Fonts": [".ttf", ".otf"],
+                "Databases": [".db", ".sqlite", ".sql"]
             }
         }
         self.users.append(new_user)
-        self.new_user = new_user
+        self.current_user = new_user
+        self.parse_rules()
+        self.save_json(self.users)
         return True
 
-    def verify_user(self, email, password):
+    def sign_in(self, email, password):
         for user in self.users:
             if user["email"] == email and user["password"] == password:
                 self.current_user = user
+                self.parse_rules()
                 return True
         else:
             return False
-    
-    def get_rules(self):
-        if self.current_user:
-            return self.current_user["rules"]
 
     def save_json(self, data):
         with open("data.json", "w", encoding="utf-8") as file:
@@ -192,6 +276,7 @@ class UserManager:
 
     def signout(self):
         self.current_user = None
+        self.current_rules = None
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
