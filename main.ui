@@ -858,7 +858,7 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
         <item>
          <widget class="QStackedWidget" name="stackedWidget_app">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="dashboard_view">
            <layout class="QVBoxLayout" name="verticalLayout_dash_body">
@@ -985,9 +985,8 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
                     <bool>true</bool>
                    </property>
                    <property name="plainText">
-                    <string># Monolith System initialized...
-# Session active. Awaiting instruction...
-_</string>
+                    <string># Rules table loaded
+# Session active. Awaiting instruction...</string>
                    </property>
                   </widget>
                  </item>
@@ -1089,6 +1088,9 @@ _</string>
                    <item row="0" column="0">
                     <property name="text">
                      <string>.pdf, .docx</string>
+                    </property>
+                    <property name="textAlignment">
+                     <set>AlignLeading|AlignTop</set>
                     </property>
                    </item>
                    <item row="0" column="1">
@@ -1342,12 +1344,12 @@ _</string>
                     <number>12</number>
                    </property>
                    <item>
-                    <widget class="QPushButton" name="btn_delete_rule_full">
+                    <widget class="QPushButton" name="btn_remove_rule_full">
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
                      <property name="text">
-                      <string>Delete Selected</string>
+                      <string>Remove Selected</string>
                      </property>
                     </widget>
                    </item>
@@ -1511,12 +1513,12 @@ _</string>
                     </layout>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="btn_save_rule">
+                    <widget class="QPushButton" name="btn_add_rule_full">
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
                      <property name="text">
-                      <string>Save Rule Set</string>
+                      <string>Add Rule</string>
                      </property>
                     </widget>
                    </item>

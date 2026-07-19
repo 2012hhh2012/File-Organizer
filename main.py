@@ -32,14 +32,23 @@ class MainWindow(QMainWindow):
         self.btn_browse_folder.clicked.connect(self.browse_folder)
         self.btn_run_cleanup.clicked.connect(self.run_cleanup)
 
-        self.btn_add_rule.clicked.connect(self.add_rule)
-        self.btn_remove_rule.clicked.connect(self.remove_rule)
+        self.btn_add_rule.clicked.connect(lambda: self.add_rule(ext_obj = self.txt_new_ext, dest_obj = self.txt_new_dest))
+        self.btn_remove_rule.clicked.connect(lambda: self.remove_rule(table_obj = self.table_rules))
+
+        self.btn_add_rule_full.clicked.connect(lambda: self.add_rule(ext_obj = self.txt_rule_ext, dest_obj = self.txt_rule_dest))
+        self.btn_remove_rule_full.clicked.connect(lambda: self.remove_rule(table_obj = self.table_rules_full))
+
+        self.table_rules.cellChanged.connect(self.on_cell_changed)
+        self.table_rules_full.cellChanged.connect(self.on_cell_changed)
 
     def load_user(self):
         # Display username
         self.lbl_sidebar_username.setText(f"Username: {self.user_manager.current_user["username"]}")
 
         # Load rules tables
+        self.table_rules.blockSignals(True) # Block change signals
+        self.table_rules_full.blockSignals(True)
+
         self.table_rules.setRowCount(0)
         self.table_rules_full.setRowCount(0)
 
@@ -61,43 +70,100 @@ class MainWindow(QMainWindow):
         self.table_rules.resizeColumnsToContents()
         self.table_rules_full.resizeColumnsToContents()
 
-    def add_rule(self):
+        self.table_rules.verticalHeader().setDefaultSectionSize(40)
+        self.table_rules_full.verticalHeader().setDefaultSectionSize(40)
+
+        self.table_rules.blockSignals(False)
+        self.table_rules_full.blockSignals(False)
+
+        # Activity log
+        self.txt_activity_log.setPlainText("> Rules table loaded\n> Session active. Awaiting instruction...")
+
+    def on_cell_changed(self, row, column):
+        if not row and not column:
+            return
+        exts = self.table_rules.item(row, 0)
+        dest = self.table_rules.item(row, 1)
+
+        extension_list = [ext.strip() for ext in exts.text().split(",") if ext.strip()]
+        for i in range(len(extension_list)):
+            if not extension_list[i].startswith("."):
+                extension_list[i] = "." + extension_list[i]
+
+        exts = ", ".join(extension_list)
+        
+        self.user_manager.edit_rule(row, extension_list, dest.text())
+        
+        self.txt_activity_log.appendPlainText(f"> Rule edited: {exts}: {dest.text()}")
+    
+    def add_rule(self, ext_obj, dest_obj):
+        self.table_rules.blockSignals(True)
+        self.table_rules_full.blockSignals(True)
+
         row = self.table_rules.rowCount()
-        ext = self.txt_new_ext.text()
-        dest = self.txt_new_dest.text()
+        exts = ext_obj.text()
+        dest = dest_obj.text()
 
-        self.user_manager.add_rule(ext, dest)
+        extension_list = [ext.strip() for ext in exts.split(",") if ext.strip()]
+        for i in range(len(extension_list)):
+            if not extension_list[i].startswith("."):
+                extension_list[i] = "." + extension_list[i]
 
-        self.txt_new_ext.clear()
-        self.txt_new_dest.clear()
+        exts = ", ".join(extension_list)
+
+        self.user_manager.add_rule(extension_list, dest)
+
+        ext_obj.clear()
+        dest_obj.clear()
 
         self.table_rules.insertRow(row)
-        self.table_rules.setItem(row, 0, QTableWidgetItem(ext))
-        self.table_rules.setItem(row, 1, QTableWidgetItem(dest))
+        self.table_rules_full.insertRow(row)
 
-    def remove_rule(self):
-        row = self.table_rules.currentRow()
+        self.table_rules.setItem(row, 0, QTableWidgetItem(exts))
+        self.table_rules.setItem(row, 1, QTableWidgetItem(dest))
+        self.table_rules_full.setItem(row, 0, QTableWidgetItem(exts))
+        self.table_rules_full.setItem(row, 1, QTableWidgetItem(dest))
+
+        self.table_rules.blockSignals(False)
+        self.table_rules_full.blockSignals(False)
+
+        self.txt_activity_log.appendPlainText(f"> Rule added: {exts}: {dest}")
+
+    def remove_rule(self, table_obj):
+        row = table_obj.currentRow()
 
         if row < 1:
             QMessageBox.critical(self, "Error", "Please select a rule to remove")
             return
         
-        dest = self.table_rules.item(row, 1).text()
+        dest = table_obj.item(row, 1).text()
 
         self.user_manager.remove_rule(dest)
 
         self.table_rules.removeRow(row)
+        self.table_rules_full.removeRow(row)
+
+        self.txt_activity_log.appendPlainText(f"> Rule removed: {dest}")
 
     def calculate_file_hash(self, filepath, chunk_size=8192):
-        """Generates an MD5 hash for a file in a memory-efficient way."""
-        hasher = hashlib.md5()
+        """Generates an SHA-256 hash for a file in a memory-efficient way."""
+        hasher = hashlib.sha256()
         with open(filepath, 'rb') as f:  # Always open in binary mode
             while chunk := f.read(chunk_size):
                 hasher.update(chunk)
         return hasher.hexdigest()
     
     def run_cleanup(self):
+        self.txt_activity_log.appendPlainText("> Cleanup started")
+
+        moved = 0
+        purged = 0
+
         path = self.line_target_folder.text()
+        if not os.path.exists(path):
+            self.txt_activity_log.appendPlainText("> Cleanup failed: Target folder does not exist")
+            QMessageBox.critical(self, "Error", "Target folder does not exist")
+            return
         remove_duplicate = self.chk_dedup.isChecked()
         file_hashes = []
         for filename in os.listdir(path):
@@ -108,7 +174,9 @@ class MainWindow(QMainWindow):
                     file_hash = self.calculate_file_hash(filepath)
                     if file_hash in file_hashes:
                         os.remove(filepath)
+                        purged += 1
                         print(f"Duplicate file {filename} found and removed: {filepath}")
+                        self.txt_activity_log.appendPlainText(f'> Duplicate file "{filename}" found and removed')
                         continue
 
                 file_hashes.append(file_hash)
@@ -118,8 +186,11 @@ class MainWindow(QMainWindow):
                     if not os.path.exists(os.path.join(path, destination)):
                         os.makedirs(os.path.join(path, destination))
                     os.rename(filepath, os.path.join(path, destination, filename))
+                    moved += 1
                     print(f"File {filename} moved to {destination}")
+                    self.txt_activity_log.appendPlainText(f'> File "{filename}" moved to {destination}')
 
+        self.txt_activity_log.appendPlainText(f"> Cleanup completed, {moved} files moved and {purged} duplicates removed")
         QMessageBox.information(self, "Success", "Cleanup completed successfully")
 
     def browse_folder(self):
@@ -132,10 +203,14 @@ class MainWindow(QMainWindow):
         
         if folder:
             self.line_target_folder.setText(folder)
+            self.txt_activity_log.appendPlainText(f"> Target folder set to: {folder}")
 
     def handel_signin(self):
         email = self.txt_signin_email.text()
         password = self.txt_signin_password.text()
+        if not email or not password:
+            QMessageBox.critical(self, "Error", "Please enter email and password")
+            return
         status = self.user_manager.sign_in(email, password)
         if status:
             self.txt_signin_email.clear()
@@ -152,6 +227,9 @@ class MainWindow(QMainWindow):
         email = self.txt_signup_email.text()
         username = self.txt_signup_username.text()
         password = self.txt_signup_password.text()
+        if not email or not username or not password:
+            QMessageBox.critical(self, "Error", "Please enter email, username, and password")
+            return
         status = self.user_manager.sign_up(email, username, password)
         if status:
             self.txt_signup_email.clear()
@@ -199,6 +277,7 @@ class UserManager:
         self.current_rules = {}
 
     def parse_rules(self):
+        self.current_rules = {}
         if self.current_user:
             rules = self.current_user["rules"]
             for folder, extensions in rules.items():
@@ -207,10 +286,16 @@ class UserManager:
 
     def get_directory(self, ext):
         return self.current_rules.get(ext, None)
+
+    def edit_rule(self, row, new_exts: list[str], new_dest):
+        old_dest = list(self.current_user["rules"].keys())[row]
+        
+        self.current_user["rules"][new_dest] = new_exts
+        if not old_dest == new_dest:
+            self.remove_rule(old_dest)
     
-    def add_rule(self, exts, dest):
-        extension_list = [ext.strip() for ext in exts.split(",") if ext.strip()]
-        self.current_user["rules"][dest] = extension_list
+    def add_rule(self, exts: list[str], dest):
+        self.current_user["rules"][dest] = exts
         self.parse_rules()
         self.save_json(self.users)
 
@@ -235,7 +320,7 @@ class UserManager:
             "email": email,
             "username": username,
             "password": password,
-            "rules_preset": "Documents",
+            "rules_preset": "Documents", # Default preset
             "rules": {
                 "Documents": [".pdf", ".docx", ".txt", ".rtf", ".odt"],
                 "Images": [".jpg", ".png", ".gif", ".bmp", ".svg"],
