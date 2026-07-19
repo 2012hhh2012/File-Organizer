@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem
+from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem, QStyledItemDelegate, QLineEdit
 from PyQt6.QtGui import QIcon
 from PyQt6 import uic
 import sys
@@ -6,6 +6,7 @@ import json
 import hashlib
 import os
 import bcrypt
+import ctypes
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -17,7 +18,7 @@ class MainWindow(QMainWindow):
         self.rule_manager.rule_manager = self.rule_manager
         self.show_signin()
 
-        self.setWindowIcon(QIcon("file-organizer-logo.svg"))
+        # self.setWindowIcon(QIcon("file-organizer-logo.svg"))
 
         self.btn_signin.clicked.connect(self.handel_signin)
         self.btn_go_signup.clicked.connect(self.show_signup)
@@ -35,11 +36,11 @@ class MainWindow(QMainWindow):
         self.btn_browse_folder.clicked.connect(self.browse_folder)
         self.btn_run_cleanup.clicked.connect(self.run_cleanup)
 
-        self.btn_add_rule.clicked.connect(lambda: self.add_rule(ext_obj = self.txt_new_ext, dest_obj = self.txt_new_dest))
-        self.btn_remove_rule.clicked.connect(lambda: self.remove_rule(table_obj = self.table_rules))
+        self.btn_add_rule.clicked.connect(self.add_rule)
+        self.btn_remove_rule.clicked.connect(self.remove_rule)
 
-        self.btn_add_rule_full.clicked.connect(lambda: self.add_rule(ext_obj = self.txt_rule_ext, dest_obj = self.txt_rule_dest))
-        self.btn_remove_rule_full.clicked.connect(lambda: self.remove_rule(table_obj = self.table_rules_full))
+        self.btn_add_rule_full.clicked.connect(self.add_rule)
+        self.btn_remove_rule_full.clicked.connect(self.remove_rule)
 
         self.table_rules.cellChanged.connect(self.on_cell_changed)
         self.table_rules_full.cellChanged.connect(self.on_cell_changed)
@@ -48,7 +49,7 @@ class MainWindow(QMainWindow):
         # Display username
         self.lbl_sidebar_username.setText(f"Username: {self.user_manager.current_user["username"]}")
 
-        # Load rules tables
+        # Rules tables
         self.table_rules.blockSignals(True) # Block change signals
         self.table_rules_full.blockSignals(True)
 
@@ -76,17 +77,32 @@ class MainWindow(QMainWindow):
         self.table_rules.verticalHeader().setDefaultSectionSize(40)
         self.table_rules_full.verticalHeader().setDefaultSectionSize(40)
 
+        self.table_rules.setItemDelegate(CustomTableDelegate())
+        self.table_rules_full.setItemDelegate(CustomTableDelegate())
+
         self.table_rules.blockSignals(False)
         self.table_rules_full.blockSignals(False)
 
         # Activity log
         self.txt_activity_log.setPlainText("> Rules table loaded\n> Session active. Awaiting instruction...")
 
+        # Tasks table
+        self.table_tasks.resizeColumnsToContents()
+
+        # Archive table
+        self.table_archive.resizeColumnsToContents()
+
     def on_cell_changed(self, row, column):
-        if not row and not column:
+        if row < 0 and column < 0:
             return
-        exts = self.table_rules.item(row, 0)
-        dest = self.table_rules.item(row, 1)
+        
+        self.table_rules.blockSignals(True)
+        self.table_rules_full.blockSignals(True)
+
+        sender = self.sender()
+        exts = sender.item(row, 0)
+        dest = sender.item(row, 1)
+        dest_text = dest.text()
 
         extension_list = [ext.strip() for ext in exts.text().split(",") if ext.strip()]
         for i in range(len(extension_list)):
@@ -97,9 +113,25 @@ class MainWindow(QMainWindow):
         
         self.rule_manager.edit_rule(row, extension_list, dest.text())
         
-        self.txt_activity_log.appendPlainText(f"> Rule edited: {exts}: {dest.text()}")
+        self.table_rules.setItem(row, 0, QTableWidgetItem(exts))
+        self.table_rules_full.setItem(row, 0, QTableWidgetItem(exts))
+
+        self.table_rules.setItem(row, 1, QTableWidgetItem(dest_text))
+        self.table_rules_full.setItem(row, 1, QTableWidgetItem(dest_text))
+
+        self.table_rules.blockSignals(False)
+        self.table_rules_full.blockSignals(False)
+        
+        self.txt_activity_log.appendPlainText(f"> Rule edited: {exts}: {dest_text}")
     
-    def add_rule(self, ext_obj, dest_obj):
+    def add_rule(self):
+        if self.sender() == self.btn_add_rule:
+            ext_obj = self.txt_new_ext
+            dest_obj = self.txt_new_dest
+        elif self.sender() == self.btn_add_rule_full:
+            ext_obj = self.txt_rule_ext
+            dest_obj = self.txt_rule_dest
+
         self.table_rules.blockSignals(True)
         self.table_rules_full.blockSignals(True)
 
@@ -109,6 +141,11 @@ class MainWindow(QMainWindow):
 
         extension_list = [ext.strip() for ext in exts.split(",") if ext.strip()]
         for i in range(len(extension_list)):
+            if self.rule_manager.get_directory(extension_list[i]):
+                self.table_rules.blockSignals(False)
+                self.table_rules_full.blockSignals(False)
+                QMessageBox.critical(self, "Error", f"Extension {extension_list[i]} already exists")
+                return
             if not extension_list[i].startswith("."):
                 extension_list[i] = "." + extension_list[i]
 
@@ -132,7 +169,12 @@ class MainWindow(QMainWindow):
 
         self.txt_activity_log.appendPlainText(f"> Rule added: {exts}: {dest}")
 
-    def remove_rule(self, table_obj):
+    def remove_rule(self):
+        if self.sender() == self.btn_remove_rule:
+            table_obj = self.table_rules
+        elif self.sender() == self.btn_remove_rule_full:
+            table_obj = self.table_rules_full
+
         row = table_obj.currentRow()
 
         if row < 0:
@@ -234,7 +276,7 @@ class MainWindow(QMainWindow):
         if not email or not username or not password:
             QMessageBox.critical(self, "Error", "Please enter email, username, and password")
             return
-        status = self.user_manager.sign_up(email, username, password)
+        status, message = self.user_manager.sign_up(email, username, password)
         if status:
             self.txt_signup_email.clear()
             self.txt_signup_username.clear()
@@ -243,6 +285,11 @@ class MainWindow(QMainWindow):
             self.load_user()
             self.rule_manager.parse_rules()
             self.show_app_page(0)
+        else:
+            self.txt_signup_email.clear()
+            self.txt_signup_username.clear()
+            self.txt_signup_password.clear()
+            QMessageBox.critical(self, "Error", message)
 
     def handel_signout(self):
         self.user_manager.signout()
@@ -281,7 +328,7 @@ class RuleManager:
         self.user_manager = user_manager
         self.current_rules = {}
 
-    def parse_rules(self):
+    def parse_rules(self) -> None:
         self.current_rules = {}
         if self.user_manager.current_user:
             rules = self.user_manager.current_user["rules"]
@@ -289,22 +336,24 @@ class RuleManager:
                 for ext in extensions:
                     self.current_rules[ext] = folder
 
-    def get_directory(self, ext):
+    def get_directory(self, ext) -> str:
         return self.current_rules.get(ext, None)
     
-    def edit_rule(self, row, new_exts: list[str], new_dest: str):
+    def edit_rule(self, row, new_exts: list[str], new_dest: str) -> None:
         old_dest = list(self.user_manager.current_user["rules"].keys())[row]
         
         self.user_manager.current_user["rules"][new_dest] = new_exts
         if not old_dest == new_dest:
             self.remove_rule(old_dest)
+        else:
+            self.user_manager.save_data()
 
-    def add_rule(self, exts: list[str], dest: str):
+    def add_rule(self, exts: list[str], dest: str) -> None:
         self.user_manager.current_user["rules"][dest] = exts
         self.parse_rules()
         self.user_manager.save_data()
 
-    def remove_rule(self, dest):
+    def remove_rule(self, dest) -> None:
         del self.user_manager.current_user["rules"][dest]
         self.parse_rules()
         self.user_manager.save_data()
@@ -328,15 +377,13 @@ class UserManager:
         password_hash_bytes = password_hash.encode('utf-8')
         return bcrypt.checkpw(password_bytes, password_hash_bytes)
 
-    def sign_up(self, email, username, password):
+    def sign_up(self, email, username, password) -> tuple[bool, str]:
         for user in self.users:
             if user["email"] == email:
-                QMessageBox.critical(self, "Error", "Email already exists")
-                return False
+                return False, "Email already exists"
             
             elif user["username"] == username:
-                QMessageBox.critical(self, "Error", "Username already exists")
-                return False
+                return False, "Username already exists"
             
         password_hash = self.hash_password(password)
             
@@ -366,9 +413,9 @@ class UserManager:
         self.users.append(new_user)
         self.current_user = new_user
         self.save_data()
-        return True
+        return True, "Account created successfully!"
 
-    def sign_in(self, email, password):
+    def sign_in(self, email, password) -> bool:
         for user in self.users:
             if user["email"] == email and self.verify_password(password, user["password_hash"]):
                 self.current_user = user
@@ -376,14 +423,14 @@ class UserManager:
         else:
             return False
 
-    def save_data(self):
+    def save_data(self) -> None:
         self.save_json(self.users)
 
-    def save_json(self, data):
+    def save_json(self, data) -> None:
         with open("data.json", "w", encoding="utf-8") as file:
             json.dump(data, file, indent=4)
             
-    def read_json(self):
+    def read_json(self) -> list:
         if os.path.exists("data.json"):
             try:
                 with open("data.json", "r", encoding="utf-8") as file:
@@ -401,12 +448,40 @@ class UserManager:
             self.save_json([])
             return []
 
-    def signout(self):
+    def signout(self) -> None:
         self.current_user = None
         self.rule_manager.current_rules = None
 
+class CustomTableDelegate(QStyledItemDelegate):
+    def createEditor(self, parent, option, index):
+        editor = QLineEdit(parent)  # parent = viewport
+        editor.setFixedHeight(38)
+        return editor
+
+    def updateEditorGeometry(self, editor, option, index):
+        rect = option.rect
+        rect.adjust(1, 1, -1, -1)
+        if editor.height() < rect.height():
+            y_offset = (rect.height() - editor.height()) // 2
+            rect.setTop(rect.top() + y_offset)
+            rect.setHeight(editor.height())
+        editor.setGeometry(rect)
+
+    def commitData(self, editor):
+        # Guard against the warning
+        if editor.parent() is not None:
+            super().commitData(editor)
+        # else: editor is already gone, ignore
+
+    def closeEditor(self, editor, hint):
+        # Clean up properly
+        super().closeEditor(editor, hint)
+        
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
+    if sys.platform == "win32":
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("FileOrganizer.App")
+    QApplication.setWindowIcon(QIcon("file-organizer-logo.svg"))
     window.show()
     app.exec()
