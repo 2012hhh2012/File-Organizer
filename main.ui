@@ -774,7 +774,7 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
              <property name="text">
-              <string>  Active Tasks</string>
+              <string>  Tasks</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -819,7 +819,7 @@ QCheckBox::indicator:checked { background: #adc6ff; border: 1px solid #adc6ff; }
            <item>
             <widget class="QLabel" name="lbl_sidebar_username">
              <property name="text">
-              <string>Username: Test</string>
+              <string>Username: Placeholder</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

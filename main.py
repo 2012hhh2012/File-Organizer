@@ -5,6 +5,7 @@ import sys
 import json
 import hashlib
 import os
+import bcrypt
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -12,6 +13,8 @@ class MainWindow(QMainWindow):
         uic.loadUi("main.ui", self)
 
         self.user_manager = UserManager()
+        self.rule_manager = RuleManager(user_manager=self.user_manager)
+        self.rule_manager.rule_manager = self.rule_manager
         self.show_signin()
 
         self.setWindowIcon(QIcon("file-organizer-logo.svg"))
@@ -92,7 +95,7 @@ class MainWindow(QMainWindow):
 
         exts = ", ".join(extension_list)
         
-        self.user_manager.edit_rule(row, extension_list, dest.text())
+        self.rule_manager.edit_rule(row, extension_list, dest.text())
         
         self.txt_activity_log.appendPlainText(f"> Rule edited: {exts}: {dest.text()}")
     
@@ -111,7 +114,7 @@ class MainWindow(QMainWindow):
 
         exts = ", ".join(extension_list)
 
-        self.user_manager.add_rule(extension_list, dest)
+        self.rule_manager.add_rule(extension_list, dest)
 
         ext_obj.clear()
         dest_obj.clear()
@@ -132,13 +135,13 @@ class MainWindow(QMainWindow):
     def remove_rule(self, table_obj):
         row = table_obj.currentRow()
 
-        if row < 1:
+        if row < 0:
             QMessageBox.critical(self, "Error", "Please select a rule to remove")
             return
         
         dest = table_obj.item(row, 1).text()
 
-        self.user_manager.remove_rule(dest)
+        self.rule_manager.remove_rule(dest)
 
         self.table_rules.removeRow(row)
         self.table_rules_full.removeRow(row)
@@ -167,7 +170,7 @@ class MainWindow(QMainWindow):
         remove_duplicate = self.chk_dedup.isChecked()
         file_hashes = []
         for filename in os.listdir(path):
-            root, ext = os.path.splitext(filename)
+            _, ext = os.path.splitext(filename)
             filepath = os.path.join(path, filename)
             if os.path.isfile(filepath):
                 if remove_duplicate:
@@ -180,7 +183,7 @@ class MainWindow(QMainWindow):
                         continue
 
                 file_hashes.append(file_hash)
-                destination = self.user_manager.get_directory(ext)
+                destination = self.rule_manager.get_directory(ext)
 
                 if destination:
                     if not os.path.exists(os.path.join(path, destination)):
@@ -216,6 +219,7 @@ class MainWindow(QMainWindow):
             self.txt_signin_email.clear()
             self.txt_signin_password.clear()
             QMessageBox.information(self, "Success", "Login successful")
+            self.rule_manager.parse_rules()
             self.load_user()
             self.show_app_page(0)
         else:
@@ -237,6 +241,7 @@ class MainWindow(QMainWindow):
             self.txt_signup_password.clear()
             QMessageBox.information(self, "Success", "Registration successful")
             self.load_user()
+            self.rule_manager.parse_rules()
             self.show_app_page(0)
 
     def handel_signout(self):
@@ -270,56 +275,75 @@ class MainWindow(QMainWindow):
     #       - 3: archive_view
     #       - 4: settings_view
 
-class UserManager:
-    def __init__(self):
-        self.users = self.read_json()
-        self.current_user = None
+class RuleManager:
+    """Manages rule data."""
+    def __init__(self, user_manager):
+        self.user_manager = user_manager
         self.current_rules = {}
 
     def parse_rules(self):
         self.current_rules = {}
-        if self.current_user:
-            rules = self.current_user["rules"]
+        if self.user_manager.current_user:
+            rules = self.user_manager.current_user["rules"]
             for folder, extensions in rules.items():
                 for ext in extensions:
                     self.current_rules[ext] = folder
 
     def get_directory(self, ext):
         return self.current_rules.get(ext, None)
-
-    def edit_rule(self, row, new_exts: list[str], new_dest):
-        old_dest = list(self.current_user["rules"].keys())[row]
+    
+    def edit_rule(self, row, new_exts: list[str], new_dest: str):
+        old_dest = list(self.user_manager.current_user["rules"].keys())[row]
         
-        self.current_user["rules"][new_dest] = new_exts
+        self.user_manager.current_user["rules"][new_dest] = new_exts
         if not old_dest == new_dest:
             self.remove_rule(old_dest)
-    
-    def add_rule(self, exts: list[str], dest):
-        self.current_user["rules"][dest] = exts
+
+    def add_rule(self, exts: list[str], dest: str):
+        self.user_manager.current_user["rules"][dest] = exts
         self.parse_rules()
-        self.save_json(self.users)
+        self.user_manager.save_data()
 
     def remove_rule(self, dest):
-        del self.current_user["rules"][dest]
+        del self.user_manager.current_user["rules"][dest]
         self.parse_rules()
-        self.save_json(self.users)
+        self.user_manager.save_data()
+
+class UserManager:
+    """Manages user data and authentication."""
+    def __init__(self):
+        self.users = self.read_json()
+        self.current_user = None
+        self.rule_manager = None
+
+    def hash_password(self, password: str) -> str:
+        password_bytes = password.encode('utf-8')
+        salt = bcrypt.gensalt(rounds=12)
+        password_hash = bcrypt.hashpw(password_bytes, salt)
+        password_hash_str = password_hash.decode('utf-8')
+        return password_hash_str
+
+    def verify_password(self, password: str, password_hash: str) -> bool:
+        password_bytes = password.encode('utf-8')
+        password_hash_bytes = password_hash.encode('utf-8')
+        return bcrypt.checkpw(password_bytes, password_hash_bytes)
 
     def sign_up(self, email, username, password):
         for user in self.users:
             if user["email"] == email:
-                self.txt_signup_email.clear()
                 QMessageBox.critical(self, "Error", "Email already exists")
                 return False
             
             elif user["username"] == username:
-                self.txt_signup_username.clear()
                 QMessageBox.critical(self, "Error", "Username already exists")
                 return False
+            
+        password_hash = self.hash_password(password)
             
         new_user = {
             "email": email,
             "username": username,
-            "password": password,
+            "password_hash": password_hash,
             "rules_preset": "Documents", # Default preset
             "rules": {
                 "Documents": [".pdf", ".docx", ".txt", ".rtf", ".odt"],
@@ -341,30 +365,45 @@ class UserManager:
         }
         self.users.append(new_user)
         self.current_user = new_user
-        self.parse_rules()
-        self.save_json(self.users)
+        self.save_data()
         return True
 
     def sign_in(self, email, password):
         for user in self.users:
-            if user["email"] == email and user["password"] == password:
+            if user["email"] == email and self.verify_password(password, user["password_hash"]):
                 self.current_user = user
-                self.parse_rules()
                 return True
         else:
             return False
 
+    def save_data(self):
+        self.save_json(self.users)
+
     def save_json(self, data):
         with open("data.json", "w", encoding="utf-8") as file:
             json.dump(data, file, indent=4)
-
+            
     def read_json(self):
-        with open("data.json", "r", encoding="utf-8") as file:
-            return json.load(file)
+        if os.path.exists("data.json"):
+            try:
+                with open("data.json", "r", encoding="utf-8") as file:
+                    return json.load(file)
+            except json.JSONDecodeError:
+                print("Error decoding data.json file")
+                self.save_json([])
+                return []
+            except Exception as e:
+                print(f"Error reading data.json file: {e}")
+                self.save_json([])
+                return []
+        else:
+            print("data.json file not found")
+            self.save_json([])
+            return []
 
     def signout(self):
         self.current_user = None
-        self.current_rules = None
+        self.rule_manager.current_rules = None
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

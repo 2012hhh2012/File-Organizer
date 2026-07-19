@@ -219,3 +219,6 @@ __marimo__/
 
 # VS Code
 .vscode/
+
+# Others
+data.json
